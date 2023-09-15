@@ -1,0 +1,12 @@
+.input-password{
+    display: flex;
+    align-items: center;
+    input{
+        position: relative;
+        flex: 1;
+    }
+    i{
+        position: absolute;
+        right: 90px;
+    }
+}

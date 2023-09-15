@@ -42,6 +42,8 @@ body{
         }
     }
     .homepage-container{
+        display: flex;
+        width: 100%;
         .homepage-content{
             padding: 100px;
             width: 50%;
@@ -70,5 +72,13 @@ body{
                 }
             }
         }
+        .video{
+            width: 50%;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            height: 100%;
+        }
     }
 }
+
