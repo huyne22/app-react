@@ -4,10 +4,8 @@ import Modal from "react-bootstrap/Modal";
 import { postEditPatient } from "../service/apiService";
 import { useEffect } from "react";
 import _ from "lodash";
-import { postCreatePatient } from "../service/apiService";
 import { toast } from "react-toastify";
 const ModalEditPatient = (props) => {
-  const [data, setData] = useState({});
   const { show1, setShow1, dataUpdate } = props;
   const [maBN, setMaBN] = useState("");
   const [hoBN, setHoBN] = useState("");
@@ -17,18 +15,16 @@ const ModalEditPatient = (props) => {
   const [ngaySinh, setNgaySinh] = useState("");
   const [gioiTinh, setGioiTinh] = useState("Nam");
   const [diaChi, setDiaChi] = useState("");
-  const [patientInfo, setPatientInfo] = useState({
-    MaBN: "",
-    HoBN: "",
-    TenBN: "",
-    SoDT: "",
-    Email: "",
-    NgaySinh: "",
-    GioiTinh: "Nam",
-    DiaChi: "",
-  });
+  const [ghiChu, setGhiChu] = useState("");
+  const [yourObject, setYourObject] = useState({});
 
+  const updateObjectWithNewProperty = () => {
+    // Tạo bản sao của đối tượng hiện tại để không ghi đè lên trực tiếp
+    const updatedObject = { ...yourObject };
+    setYourObject(updatedObject); // Cập nhật đối tượng với thuộc tính mới
+  };
   useEffect(() => {
+    console.log("dataUpdate");
     if (!_.isEmpty(dataUpdate)) {
       setMaBN(dataUpdate.MaBN);
       setHoBN(dataUpdate.HoBN);
@@ -38,65 +34,103 @@ const ModalEditPatient = (props) => {
       setNgaySinh(dataUpdate.NgaySinh.split("T")[0]);
       setGioiTinh(dataUpdate.GioiTinh);
       setDiaChi(dataUpdate.DiaChi);
+      setGhiChu(dataUpdate.DiaChi);
+      updateObjectWithNewProperty();
     } else {
     }
   }, [dataUpdate]);
-
-  const handleSubmit = async (e) => {
-    await updateBN();
-
-    //set lại ngày
-
-    // let newData = {
-    //   MaBN: maBN,
-    //   HoBN: hoBN,
-    //   TenBN: tenBN,
-    //   SoDT: soDT,
-    //   Email: email,
-    //   NgaySinh: ngaySinh,
-    //   GioiTinh: gioiTinh,
-    //   DiaChi: diaChi,
-    // };
-
-    console.log(patientInfo);
-    //truyền data mới
-    // let res = await postEditPatient();
-    // console.log(res);
-    // if (res && res.errCode == 0) {
-    //   setShow1(false);
-    //   toast.success("Cập nhật bệnh nhân thành công!");
-    //   await props.fetchListPatient();
-    // } else {
-    //   toast.error("Cập nhật bệnh nhân thất bại!");
-    // }
-  };
-  const updateBN = () => {
-    let a = new Date(ngaySinh);
-    console.log(a.toISOString().split("T")[0]);
-    ngaySinh = a.toISOString().split("T")[0];
-    setPatientInfo((prevState) => ({
-      ...prevState,
-      MaBN: maBN,
+  //ma
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      MaBN: maBN.toString(),
+    }));
+  }, [maBN]);
+  //ho
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
       HoBN: hoBN,
+    }));
+  }, [hoBN]);
+  //ten
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
       TenBN: tenBN,
+    }));
+  }, [tenBN]);
+  //soDT
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
       SoDT: soDT,
+    }));
+  }, [soDT]);
+  //email
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
       Email: email,
+    }));
+  }, [email]);
+  //ngaySinh
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
       NgaySinh: ngaySinh,
+    }));
+  }, [ngaySinh]);
+  //gioiTinh
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
       GioiTinh: gioiTinh,
+    }));
+  }, [gioiTinh]);
+  //diaChi
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
       DiaChi: diaChi,
     }));
+  }, [diaChi]);
+  // ghiChu
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      GhiChu: ghiChu,
+    }));
+  }, [ghiChu]);
+
+  const handleSubmit = async (e) => {
+    console.log("yourObject", yourObject.NgaySinh);
+
+    let res = await postEditPatient(yourObject);
+    console.log(res);
+    if (res?.errCode == 0) {
+      setShow1(false);
+      toast.success("Cập nhật bệnh nhân thành công!");
+      await props.fetchListPatient();
+    } else if (res?.errCode == 3) {
+      setShow1(false);
+      toast.info("Không có trường dữ liệu nào được cập nhật!");
+    } else {
+      toast.error("Cập nhật bệnh nhân thất bại!");
+    }
   };
 
   const handleClose = () => {
     setShow1(false);
-    setMaBN("");
-    setHoBN("");
-    setTenBN("");
-    setSoDT("");
-    setEmail("");
-    setNgaySinh("");
-    setGioiTinh("Nam");
-    setDiaChi("");
+    // setMaBN("");
+    // setHoBN("");
+    // setTenBN("");
+    // setSoDT("");
+    // setEmail("");
+    // setNgaySinh("");
+    // setGioiTinh("Nam");
+    // setDiaChi("");
+    console.log("close");
   };
   return (
     <>
@@ -123,6 +157,7 @@ const ModalEditPatient = (props) => {
                 name="MaBN"
                 value={maBN}
                 onChange={(e) => setMaBN(e.target.value)}
+                disabled
               />
             </div>
             <div className="mb-3">
@@ -215,6 +250,18 @@ const ModalEditPatient = (props) => {
                 name="DiaChi"
                 value={diaChi}
                 onChange={(e) => setDiaChi(e.target.value)}
+              ></textarea>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="GhiChu" className="form-label">
+                Ghi Chú
+              </label>
+              <textarea
+                className="form-control"
+                id="GhiChu"
+                name="GhiChu"
+                value={ghiChu}
+                onChange={(e) => setGhiChu(e.target.value)}
               ></textarea>
             </div>
           </div>

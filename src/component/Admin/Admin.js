@@ -14,9 +14,9 @@ const Admin = (props) => {
         <div className="admin-sidebar">
           <SideBar collapsed={collapsed} />
         </div>
-        <div className="admin-content">
+        <div className="admin-content ms-2">
           <div className="admin-header">
-            <FaBars onClick={() => setCollapsed(!collapsed)} />
+            <FaBars cursor="pointer" onClick={() => setCollapsed(!collapsed)} />
           </div>
           <div className="admin-main">
             <Outlet />

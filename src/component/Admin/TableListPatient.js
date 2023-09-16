@@ -45,7 +45,12 @@ const TableListPatient = (props) => {
                       Sửa
                     </button>
 
-                    <button className="btn btn-danger ms-2">Xóa</button>
+                    <button
+                      className="btn btn-danger ms-2"
+                      onClick={() => props.handleBtnDelete(item)}
+                    >
+                      Xóa
+                    </button>
                   </td>
                 </tr>
               ))}

@@ -1,3 +1,5 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import "./Login.scss";
 import { useState } from "react";
 import { postLogin } from "../service/apiService";
@@ -11,12 +13,21 @@ const Login = (props) => {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    //validate
-    //submit apis
-    let res = await postLogin(TenDangNhap, MatKhau);
-    console.log("check Dang Nhap", res);
-    await setErrMessage(res.errMessage);
+    if (TenDangNhap.trim() === "" || MatKhau.trim() === "") {
+      alert("Vui lòng nhập thông tin.");
+      return;
+    } else {
+      e.preventDefault();
+      //validate
+      //submit apis
+      let res = await postLogin(TenDangNhap, MatKhau);
+      if (res?.errCode == 0) {
+        alert("di chuyển đến trang chính");
+      } else {
+        console.log("check Dang Nhap", res?.data);
+        await setErrMessage(res?.errMessage);
+      }
+    }
   };
   const handleOnChange = (e) => {
     setTenDangNhap(e.target.value);
@@ -51,6 +62,8 @@ const Login = (props) => {
                     name="TenDangNhap"
                     value={TenDangNhap}
                     onChange={(event) => handleOnChange(event)}
+                    placeholder="Nhập thông tin"
+                    required
                   />
                 </div>
 
@@ -67,6 +80,8 @@ const Login = (props) => {
                       value={MatKhau}
                       name="MatKhau"
                       onChange={(event) => setMatKhau(event.target.value)}
+                      placeholder="Nhập mật khẩu"
+                      required
                     />
 
                     <i
@@ -94,12 +109,20 @@ const Login = (props) => {
                   Sign in
                 </button>
 
-                <p className="text-center text-muted mt-5 mb-0">
+                <div className="text-center text-muted mt-3 mb-3">
                   Bạn chưa có tài khoản?{" "}
-                  <a href="/register" className="fw-bold text-body">
-                    <u>Đăng ký tại đây</u>
+                  <a href="#" className="fw-bold text-body">
+                    <Link to="/register">
+                      <u>Đăng ký tại đây</u>
+                    </Link>
                   </a>
-                </p>
+                </div>
+                <div className="text-center text-muted ms-2">
+                  Quay về trang chủ?{" "}
+                  <a href="#" className="fw-bold text-body">
+                    <Link to="/">Quay về</Link>
+                  </a>
+                </div>
               </form>
             </div>
           </div>

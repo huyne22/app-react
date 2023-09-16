@@ -15,6 +15,7 @@ const ModalCreateUser = (props) => {
   const [ngaySinh, setNgaySinh] = useState("");
   const [gioiTinh, setGioiTinh] = useState("Nam");
   const [diaChi, setDiaChi] = useState("");
+  const [ghiChu, setGhiChu] = useState("");
 
   useEffect(() => {
     setMaBN("");
@@ -25,6 +26,7 @@ const ModalCreateUser = (props) => {
     setNgaySinh("");
     setGioiTinh("Nam");
     setDiaChi("");
+    setGhiChu("");
   }, [show]);
   const handleDelete = () => {
     console.log("delete");
@@ -39,13 +41,16 @@ const ModalCreateUser = (props) => {
       email,
       ngaySinh,
       gioiTinh,
-      diaChi
+      diaChi,
+      ghiChu
     );
     console.log(res);
-    if (res && res.errCode == 0) {
+    if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới bệnh nhân thành công!");
       await props.fetchListPatient();
+    } else if (res?.errCode == 2) {
+      toast.error("🦄Tạo mới bệnh nhân thất bại! Mã bệnh nhân đã tồn tại!");
     } else {
       toast.error("🦄Tạo mới bệnh nhân thất bại!");
     }
@@ -175,6 +180,19 @@ const ModalCreateUser = (props) => {
                 name="DiaChi"
                 value={diaChi}
                 onChange={(e) => setDiaChi(e.target.value)}
+                required
+              ></textarea>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="GhiChu" className="form-label">
+                Ghi Chú
+              </label>
+              <textarea
+                className="form-control"
+                id="GhiChu"
+                name="GhiChu"
+                value={ghiChu}
+                onChange={(e) => setGhiChu(e.target.value)}
                 required
               ></textarea>
             </div>
