@@ -6,6 +6,8 @@ const instance = axios.create({
   // withCredentials: true
 });
 
+instance.defaults.withCredentials = true;
+
 instance.interceptors.response.use((response) => {
   // Thrown error for request with OK status code
   const { data } = response;

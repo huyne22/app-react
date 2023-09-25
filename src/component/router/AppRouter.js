@@ -1,24 +1,23 @@
-import SideBarUser from "./SideBarUser";
+import SideBar from "./SideBar";
 import { FaBars } from "react-icons/fa";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const User = (props) => {
+const AppRouter = (props) => {
   const [collapsed, setCollapsed] = useState(false);
 
-  console.log("in ra ", props.data);
   return (
     <>
-      <div className="admin-container">
-        <div className="admin-sidebar">
-          <SideBarUser collapsed={collapsed} />
+      <div className="app-container">
+        <div className="app-sidebar">
+          <SideBar collapsed={collapsed} />
         </div>
-        <div className="admin-content ms-2">
-          <div className="admin-header">
+        <div className="app-content ms-2">
+          <div className="app-header">
             <FaBars cursor="pointer" onClick={() => setCollapsed(!collapsed)} />
           </div>
-          <div className="admin-main">
+          <div className="app-main">
             <Outlet />
           </div>
         </div>
@@ -38,4 +37,4 @@ const User = (props) => {
     </>
   );
 };
-export default User;
+export default AppRouter;

@@ -18,12 +18,12 @@ import {
   FaHeart,
 } from "react-icons/fa";
 import sidebarBg from "../../assect/sidebarBg.jpg";
-import "./SideBar.scss";
+import "./SideBarUser.scss";
 import { DiReact } from "react-icons/di";
 import { MdDashboard } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const SideBar = (props) => {
+const SideBarUser = (props) => {
   const { image, collapsed, toggled, handleToggleSidebar } = props;
   return (
     <>
@@ -57,42 +57,22 @@ const SideBar = (props) => {
         <SidebarContent>
           <Menu iconShape="circle">
             <SubMenu icon={<FaGem />} title="Service">
-              <MenuItem icon={<MdDashboard />}>
-                Quản lý bác sĩ
-                <Link to="/admins/manage-doctor" />
-              </MenuItem>
-              <MenuItem icon={<FaGem />}>
-                Quản lý y tá
-                <Link to="/admins/manage-nurse" />
+              <MenuItem>
+                Đăng kí khám bệnh
+                <Link to="/admins/manage-patient" />
               </MenuItem>
             </SubMenu>
           </Menu>
           <Menu iconShape="circle">
             <SubMenu icon={<FaGem />} title="Features">
-              <MenuItem>
-                Quản lý bệnh nhân
-                <Link to="/admins/manage-patient" />
-              </MenuItem>
-              <MenuItem>
+              {/* <MenuItem>
                 Quản lý dịch vụ y tế
                 <Link to="/admins/manage-medical-service" />
               </MenuItem>
               <MenuItem>
                 Quản lý lịch trực bác sĩ
                 <Link to="/admins/manage-schedule" />
-              </MenuItem>
-              <MenuItem>
-                Quản lý lịch hẹn bệnh nhân
-                <Link to="/admins/manage-appointment" />
-              </MenuItem>
-              <MenuItem>
-                Quản lý phiếu khám bệnh
-                <Link to="/admins/manage-examination" />
-              </MenuItem>
-              <MenuItem>
-                Quản lý bệnh nhân - dịch vụ
-                <Link to="/admins/manage-patient-medical-service" />
-              </MenuItem>
+              </MenuItem> */}
             </SubMenu>
           </Menu>
         </SidebarContent>
@@ -127,4 +107,4 @@ const SideBar = (props) => {
   );
 };
 
-export default SideBar;
+export default SideBarUser;

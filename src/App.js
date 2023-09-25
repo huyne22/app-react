@@ -1,24 +1,23 @@
-import React from 'react';
-import './App.scss';
-import Header from './component/Header/Header';
-import { Link,Outlet } from "react-router-dom";
-
+import React from "react";
+import "./App.scss";
+import Header from "./component/Header/Header";
+import { Link, Outlet } from "react-router-dom";
+import _ from "lodash";
 
 const App = () => {
-  return(
-  <div className='app-container'>
+  return (
+    <div className="app-container">
       <div className="header-container">
-        <Header/>
+        <Header />
       </div>
       <div className="main-container">
         <div className="sidenav-container"></div>
         <div className="app-content">
-          <Outlet/>
+          <Outlet />
         </div>
       </div>
-  </div>
-  )
-}
-
+    </div>
+  );
+};
 
 export default App;

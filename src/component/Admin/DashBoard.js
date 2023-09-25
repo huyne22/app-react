@@ -1,6 +1,4 @@
 const DashBoard = (props) => {
-    return(
-        <div>DashBoard</div>
-    )
-}
+  return <div>Quản lý bác sĩ</div>;
+};
 export default DashBoard;

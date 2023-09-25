@@ -21,10 +21,22 @@ const Login = (props) => {
       //validate
       //submit apis
       let res = await postLogin(TenDangNhap, MatKhau);
+      console.log(res);
+      let token = res?.access_token;
       if (res?.errCode == 0) {
-        alert("di chuyển đến trang chính");
+        alert("Chào mừng admin");
+        localStorage.setItem("accessToken", token);
+        console.log("Login successful! Token:", token);
+        let token1 = localStorage.getItem("accessToken");
+        if (token1.length > 0) {
+          // Nếu không có token, chuyển hướng đến trang đăng nhập
+          navigate("/admins");
+        } else {
+          navigate("/login");
+          return null;
+        }
       } else {
-        console.log("check Dang Nhap", res?.data);
+        console.log("check Dang Nhap", res);
         await setErrMessage(res?.errMessage);
       }
     }

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { postCreatePatient } from "../service/apiService";
+import { postEditPatient } from "../service/apiService";
+import { useEffect } from "react";
+import _ from "lodash";
 import { toast } from "react-toastify";
-
-const ModalCreateUser = (props) => {
-  //modal
-  const { show, setShow } = props;
+const ModalEditPatient = (props) => {
+  const { show1, setShow1, dataUpdate } = props;
   const [maBN, setMaBN] = useState("");
   const [hoBN, setHoBN] = useState("");
   const [tenBN, setTenBN] = useState("");
@@ -16,63 +16,139 @@ const ModalCreateUser = (props) => {
   const [gioiTinh, setGioiTinh] = useState("Nam");
   const [diaChi, setDiaChi] = useState("");
   const [ghiChu, setGhiChu] = useState("");
+  const [yourObject, setYourObject] = useState({});
 
-  useEffect(() => {
-    setMaBN("");
-    setHoBN("");
-    setTenBN("");
-    setSoDT("");
-    setEmail("");
-    setNgaySinh("");
-    setGioiTinh("Nam");
-    setDiaChi("");
-    setGhiChu("");
-  }, [show]);
-  const handleDelete = () => {
-    console.log("delete");
+  const updateObjectWithNewProperty = () => {
+    // Tạo bản sao của đối tượng hiện tại để không ghi đè lên trực tiếp
+    const updatedObject = { ...yourObject };
+    setYourObject(updatedObject); // Cập nhật đối tượng với thuộc tính mới
   };
-  const handleSubmit = async (e) => {
-    // Thực hiện xử lý gửi dữ liệu đi ở đây, ví dụ: gọi hàm để lưu thông tin bệnh nhân
-    let res = await postCreatePatient(
-      maBN,
-      hoBN,
-      tenBN,
-      soDT,
-      email,
-      ngaySinh,
-      gioiTinh,
-      diaChi,
-      ghiChu
-    );
-    console.log(res);
-    if (res?.errCode == 0) {
-      setShow(false);
-      toast.success("🦄Tạo mới bệnh nhân thành công!");
-      await props.fetchListPatient();
-    } else if (res?.errCode == 2) {
-      toast.error("🦄Tạo mới bệnh nhân thất bại! Mã bệnh nhân đã tồn tại!");
+  useEffect(() => {
+    console.log("dataUpdate");
+    if (!_.isEmpty(dataUpdate)) {
+      setMaBN(dataUpdate.MaBN);
+      setHoBN(dataUpdate.HoBN);
+      setTenBN(dataUpdate.TenBN);
+      setSoDT(dataUpdate.SoDT);
+      setEmail(dataUpdate.Email);
+      setNgaySinh(dataUpdate.NgaySinh.split("T")[0]);
+      setGioiTinh(dataUpdate.GioiTinh);
+      setDiaChi(dataUpdate.DiaChi);
+      setGhiChu(dataUpdate.GhiChu);
+      updateObjectWithNewProperty();
     } else {
-      toast.error("🦄Tạo mới bệnh nhân thất bại!");
+    }
+  }, [dataUpdate]);
+  //ma
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      MaBN: maBN.toString(),
+    }));
+  }, [maBN]);
+  //ho
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      HoBN: hoBN,
+    }));
+  }, [hoBN]);
+  //ten
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      TenBN: tenBN,
+    }));
+  }, [tenBN]);
+  //soDT
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      SoDT: soDT,
+    }));
+  }, [soDT]);
+  //email
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      Email: email,
+    }));
+  }, [email]);
+  //ngaySinh
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      NgaySinh: ngaySinh,
+    }));
+  }, [ngaySinh]);
+  //gioiTinh
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      GioiTinh: gioiTinh,
+    }));
+  }, [gioiTinh]);
+  //diaChi
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      DiaChi: diaChi,
+    }));
+  }, [diaChi]);
+  // ghiChu
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      GhiChu: ghiChu,
+    }));
+  }, [ghiChu]);
+
+  const handleSubmit = async (e) => {
+    console.log("yourObject", yourObject.NgaySinh);
+
+    let res = await postEditPatient(yourObject);
+    console.log(res);
+    if (res?.errCode === 0) {
+      setShow1(false);
+      toast.success("Cập nhật bệnh nhân thành công!");
+      await props.fetchListPatient();
+    } else if (res?.errCode === 3) {
+      setShow1(false);
+      toast.info("Không có trường dữ liệu nào được cập nhật!");
+    } else {
+      toast.error("Cập nhật bệnh nhân thất bại!");
     }
   };
 
+  const handleClose = () => {
+    setShow1(false);
+    // setMaBN("");
+    // setHoBN("");
+    // setTenBN("");
+    // setSoDT("");
+    // setEmail("");
+    // setNgaySinh("");
+    // setGioiTinh("Nam");
+    // setDiaChi("");
+    console.log("close");
+  };
   return (
     <>
       <Modal
         size="lg"
-        show={show}
-        onHide={() => setShow(false)}
+        show={show1}
+        onHide={() => handleClose(false)}
         backdrop="static"
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Thêm bệnh nhân mới</Modal.Title>
+          <Modal.Title>Chỉnh sửa thông tin bệnh nhân</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container mt-3">
             <div className="mb-3">
               <label htmlFor="MaBN" className="form-label">
-                Mã Bệnh Nhân (Số nguyên)
+                Mã Bệnh Nhân
               </label>
               <input
                 type="text"
@@ -81,7 +157,7 @@ const ModalCreateUser = (props) => {
                 name="MaBN"
                 value={maBN}
                 onChange={(e) => setMaBN(e.target.value)}
-                required
+                disabled
               />
             </div>
             <div className="mb-3">
@@ -95,7 +171,6 @@ const ModalCreateUser = (props) => {
                 name="HoBN"
                 value={hoBN}
                 onChange={(e) => setHoBN(e.target.value)}
-                required
               />
             </div>
             <div className="mb-3">
@@ -109,7 +184,6 @@ const ModalCreateUser = (props) => {
                 name="TenBN"
                 value={tenBN}
                 onChange={(e) => setTenBN(e.target.value)}
-                required
               />
             </div>
             <div className="mb-3">
@@ -123,7 +197,6 @@ const ModalCreateUser = (props) => {
                 name="SoDT"
                 value={soDT}
                 onChange={(e) => setSoDT(e.target.value)}
-                required
               />
             </div>
             <div className="mb-3">
@@ -137,7 +210,6 @@ const ModalCreateUser = (props) => {
                 name="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
               />
             </div>
             <div className="mb-3">
@@ -151,7 +223,6 @@ const ModalCreateUser = (props) => {
                 name="NgaySinh"
                 value={ngaySinh}
                 onChange={(e) => setNgaySinh(e.target.value)}
-                required
               />
             </div>
             <div className="mb-3">
@@ -164,7 +235,6 @@ const ModalCreateUser = (props) => {
                 name="GioiTinh"
                 value={gioiTinh}
                 onChange={(e) => setGioiTinh(e.target.value)}
-                required
               >
                 <option value="Nam">Nam</option>
                 <option value="Nữ">Nữ</option>
@@ -180,7 +250,6 @@ const ModalCreateUser = (props) => {
                 name="DiaChi"
                 value={diaChi}
                 onChange={(e) => setDiaChi(e.target.value)}
-                required
               ></textarea>
             </div>
             <div className="mb-3">
@@ -193,35 +262,20 @@ const ModalCreateUser = (props) => {
                 name="GhiChu"
                 value={ghiChu}
                 onChange={(e) => setGhiChu(e.target.value)}
-                required
               ></textarea>
             </div>
-            {/* <button
-                type="submit"
-                className="btn btn-primary"
-                onClick={(e) => handleSubmit(e)}
-              >
-                Lưu Thông Tin
-              </button> */}
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShow(false)}>
+          <Button variant="secondary" onClick={() => handleClose(false)}>
             Close
           </Button>
           <Button variant="primary" onClick={(e) => handleSubmit(e)}>
-            Save
+            Update
           </Button>
         </Modal.Footer>
       </Modal>
-      {/* <ModalEditPatient
-        show={hide}
-        setShow={setHide}
-        setMaBNprops={setMaBN}
-        maBNprops={maBN}
-      /> */}
     </>
   );
 };
-
-export default ModalCreateUser;
+export default ModalEditPatient;

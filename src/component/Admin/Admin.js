@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Admin = (props) => {
   const [collapsed, setCollapsed] = useState(false);
 
+  console.log("in ra ", props.data);
   return (
     <>
       <div className="admin-container">

@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { postEditPatient } from "../service/apiService";
+import { postEditDoctor } from "../service/apiService";
 import { useEffect } from "react";
 import _ from "lodash";
 import { toast } from "react-toastify";
-const ModalEditPatient = (props) => {
+const ModalEditDoctor = (props) => {
   const { show1, setShow1, dataUpdate } = props;
-  const [maBN, setMaBN] = useState("");
-  const [hoBN, setHoBN] = useState("");
-  const [tenBN, setTenBN] = useState("");
+  const [maBS, setMaBS] = useState("");
+  const [hoBS, setHoBS] = useState("");
+  const [tenBS, setTenBS] = useState("");
   const [soDT, setSoDT] = useState("");
   const [email, setEmail] = useState("");
-  const [ngaySinh, setNgaySinh] = useState("");
+  const [bangCap, setBangCap] = useState("");
+  const [chuyenMon, setChuyenMon] = useState("");
   const [gioiTinh, setGioiTinh] = useState("Nam");
-  const [diaChi, setDiaChi] = useState("");
+  const [maNguoiDung, setMaNguoiDung] = useState("");
   const [ghiChu, setGhiChu] = useState("");
   const [yourObject, setYourObject] = useState({});
 
@@ -26,15 +27,16 @@ const ModalEditPatient = (props) => {
   useEffect(() => {
     console.log("dataUpdate");
     if (!_.isEmpty(dataUpdate)) {
-      setMaBN(dataUpdate.MaBN);
-      setHoBN(dataUpdate.HoBN);
-      setTenBN(dataUpdate.TenBN);
+      setMaBS(dataUpdate.MaBS);
+      setHoBS(dataUpdate.HoBS);
+      setTenBS(dataUpdate.TenBS);
       setSoDT(dataUpdate.SoDT);
       setEmail(dataUpdate.Email);
-      setNgaySinh(dataUpdate.NgaySinh.split("T")[0]);
+      setBangCap(dataUpdate.BangCap);
+      setChuyenMon(dataUpdate.ChuyenMon);
       setGioiTinh(dataUpdate.GioiTinh);
-      setDiaChi(dataUpdate.DiaChi);
-      setGhiChu(dataUpdate.DiaChi);
+      setMaNguoiDung(dataUpdate.MaNguoiDung);
+      setGhiChu(dataUpdate.GhiChu);
       updateObjectWithNewProperty();
     } else {
     }
@@ -43,23 +45,23 @@ const ModalEditPatient = (props) => {
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
-      MaBN: maBN.toString(),
+      MaBS: maBS.toString(),
     }));
-  }, [maBN]);
+  }, [maBS]);
   //ho
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
-      HoBN: hoBN,
+      HoBS: hoBS,
     }));
-  }, [hoBN]);
+  }, [hoBS]);
   //ten
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
-      TenBN: tenBN,
+      TenBS: tenBS,
     }));
-  }, [tenBN]);
+  }, [tenBS]);
   //soDT
   useEffect(() => {
     setYourObject((prevObject) => ({
@@ -74,13 +76,20 @@ const ModalEditPatient = (props) => {
       Email: email,
     }));
   }, [email]);
-  //ngaySinh
+  //bangCap
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
-      NgaySinh: ngaySinh,
+      BangCap: bangCap,
     }));
-  }, [ngaySinh]);
+  }, [bangCap]);
+  //chuyenMon
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      ChuyenMon: chuyenMon,
+    }));
+  }, [chuyenMon]);
   //gioiTinh
   useEffect(() => {
     setYourObject((prevObject) => ({
@@ -88,14 +97,14 @@ const ModalEditPatient = (props) => {
       GioiTinh: gioiTinh,
     }));
   }, [gioiTinh]);
-  //diaChi
+  // maNguoiDung
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
-      DiaChi: diaChi,
+      MaNguoiDung: maNguoiDung,
     }));
-  }, [diaChi]);
-  // ghiChu
+  }, [maNguoiDung]);
+  //ghichu
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
@@ -104,32 +113,30 @@ const ModalEditPatient = (props) => {
   }, [ghiChu]);
 
   const handleSubmit = async (e) => {
-    console.log("yourObject", yourObject.NgaySinh);
-
-    let res = await postEditPatient(yourObject);
+    let res = await postEditDoctor(yourObject);
     console.log(res);
-    if (res?.errCode == 0) {
+    if (res?.errCode === 0) {
       setShow1(false);
-      toast.success("Cập nhật bệnh nhân thành công!");
-      await props.fetchListPatient();
-    } else if (res?.errCode == 3) {
+      toast.success("Cập nhật bác sĩ thành công!");
+      await props.fetchListDoctor();
+    } else if (res?.errCode === 3) {
       setShow1(false);
       toast.info("Không có trường dữ liệu nào được cập nhật!");
     } else {
-      toast.error("Cập nhật bệnh nhân thất bại!");
+      toast.error("Cập nhật bác sĩ thất bại!");
     }
   };
 
   const handleClose = () => {
     setShow1(false);
-    // setMaBN("");
-    // setHoBN("");
-    // setTenBN("");
+    // setMaBS("");
+    // setHoBS("");
+    // setTenBS("");
     // setSoDT("");
     // setEmail("");
-    // setNgaySinh("");
-    // setGioiTinh("Nam");
-    // setDiaChi("");
+    // setBangCap("");
+    // setChuyenMon("Nam");
+    // setGioiTinh("");
     console.log("close");
   };
   return (
@@ -142,48 +149,48 @@ const ModalEditPatient = (props) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Chỉnh sửa thông tin bệnh nhân</Modal.Title>
+          <Modal.Title>Chỉnh sửa thông tin bác sĩ</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container mt-3">
             <div className="mb-3">
-              <label htmlFor="MaBN" className="form-label">
-                Mã Bệnh Nhân
+              <label htmlFor="MaBS" className="form-label">
+                Mã Bác sĩ
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="MaBN"
-                name="MaBN"
-                value={maBN}
-                onChange={(e) => setMaBN(e.target.value)}
+                id="MaBS"
+                name="MaBS"
+                value={maBS}
+                onChange={(e) => setMaBS(e.target.value)}
                 disabled
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="HoBN" className="form-label">
+              <label htmlFor="HoBS" className="form-label">
                 Họ
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="HoBN"
-                name="HoBN"
-                value={hoBN}
-                onChange={(e) => setHoBN(e.target.value)}
+                id="HoBS"
+                name="HoBS"
+                value={hoBS}
+                onChange={(e) => setHoBS(e.target.value)}
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="TenBN" className="form-label">
+              <label htmlFor="TenBS" className="form-label">
                 Tên
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="TenBN"
-                name="TenBN"
-                value={tenBN}
-                onChange={(e) => setTenBN(e.target.value)}
+                id="TenBS"
+                name="TenBS"
+                value={tenBS}
+                onChange={(e) => setTenBS(e.target.value)}
               />
             </div>
             <div className="mb-3">
@@ -213,21 +220,34 @@ const ModalEditPatient = (props) => {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="NgaySinh" className="form-label">
-                Ngày Sinh (Tháng/Ngày/Năm)
+              <label htmlFor="BangCap" className="form-label">
+                Bằng cấp
               </label>
               <input
-                type="date"
+                type="text"
                 className="form-control"
-                id="NgaySinh"
-                name="NgaySinh"
-                value={ngaySinh}
-                onChange={(e) => setNgaySinh(e.target.value)}
+                id="BangCap"
+                name="BangCap"
+                value={bangCap}
+                onChange={(e) => setBangCap(e.target.value)}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="ChuyenMon" className="form-label">
+                Chuyên môn
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="ChuyenMon"
+                name="ChuyenMon"
+                value={chuyenMon}
+                onChange={(e) => setChuyenMon(e.target.value)}
               />
             </div>
             <div className="mb-3">
               <label htmlFor="GioiTinh" className="form-label">
-                Giới Tính
+                Giới tính
               </label>
               <select
                 className="form-select"
@@ -241,16 +261,16 @@ const ModalEditPatient = (props) => {
               </select>
             </div>
             <div className="mb-3">
-              <label htmlFor="DiaChi" className="form-label">
-                Địa Chỉ
+              <label htmlFor="MaNguoiDung" className="form-label">
+                Mã người dùng
               </label>
-              <textarea
+              <input
                 className="form-control"
-                id="DiaChi"
-                name="DiaChi"
-                value={diaChi}
-                onChange={(e) => setDiaChi(e.target.value)}
-              ></textarea>
+                id="MaNguoiDung"
+                name="MaNguoiDung"
+                value={maNguoiDung}
+                onChange={(e) => setMaNguoiDung(e.target.value)}
+              ></input>
             </div>
             <div className="mb-3">
               <label htmlFor="GhiChu" className="form-label">
@@ -278,4 +298,4 @@ const ModalEditPatient = (props) => {
     </>
   );
 };
-export default ModalEditPatient;
+export default ModalEditDoctor;
