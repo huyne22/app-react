@@ -12,9 +12,16 @@ const ModalDeleteDoctor = (props) => {
   const handleSubmit2 = async (e) => {
     let a = { MaBS: dataUpdate.MaBS.toString() };
     let res = await postDeleteDoctor(a);
-    console.log("res", res);
+    // console.log("res", res);
+    if (res?.errCode == 0) {
+      toast.success("Xóa bác sĩ thành công!");
+      await fetchListDoctor();
+    } else if (res?.errCode == 3) {
+      toast.info("Không có trường dữ liệu nào được Xóa!");
+    } else {
+      toast.error("Xóa bác sĩ thất bại!");
+    }
 
-    await fetchListDoctor();
     handleClose2(); // Đóng modal sau khi xác nhận xóa
   };
   return (

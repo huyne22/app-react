@@ -11,15 +11,21 @@ const ModalDeleteSchedule = (props) => {
   const handleClose2 = () => setShow2(false);
   const handleSubmit2 = async (e) => {
     let a = { Ngay: dataUpdate.Ngay.toString() };
-    console.log("a", dataUpdate.Ngay);
+    // console.log("a", dataUpdate.Ngay);
     let res = await postDeleteSchedule(
       dataUpdate.Ngay,
       dataUpdate.Buoi,
       dataUpdate.MaBS
     );
-    console.log("res", res);
-
-    await fetchListSchedule();
+    // console.log("res", res);
+    if (res?.errCode == 0) {
+      toast.success("Xóa lịch trực thành công!");
+      await fetchListSchedule();
+    } else if (res?.errCode == 3) {
+      toast.info("Không có trường dữ liệu nào được Xóa!");
+    } else {
+      toast.error("Xóa lịch trực thất bại!");
+    }
     handleClose2(); // Đóng modal sau khi xác nhận xóa
   };
   return (

@@ -29,7 +29,7 @@ const ModalCreateSchedule = (props) => {
       soLuongBNToiDa,
       ghiChu
     );
-    console.log("chek", res);
+    // console.log("chek", res);
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới lịch trực thành công!");

@@ -19,7 +19,7 @@ const ModalEditAppointment = (props) => {
     setYourObject(updatedObject); // Cập nhật đối tượng với thuộc tính mới
   };
   useEffect(() => {
-    console.log("dataUpdate");
+    // console.log("dataUpdate");
     if (!_.isEmpty(dataUpdate)) {
       setNgay(dataUpdate.Ngay.split("T")[0]);
       setBuoi(dataUpdate.Buoi);

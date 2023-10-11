@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-// import { postEditSchedule } from "../service/apiService";
+import { postEditSchedule } from "../service/apiService";
 import { useEffect } from "react";
 import _ from "lodash";
 import { toast } from "react-toastify";
@@ -20,7 +20,7 @@ const ModalEditSchedule = (props) => {
     setYourObject(updatedObject); // Cập nhật đối tượng với thuộc tính mới
   };
   useEffect(() => {
-    console.log("dataUpdate");
+    // console.log("dataUpdate");
     if (!_.isEmpty(dataUpdate)) {
       setNgay(dataUpdate.Ngay.split("T")[0]);
       setBuoi(dataUpdate.Buoi);
@@ -68,9 +68,9 @@ const ModalEditSchedule = (props) => {
   }, [ghiChu]);
 
   const handleSubmit = async (e) => {
-    console.log("chek", yourObject);
+    // console.log("chek lich truc", yourObject);
     let res = await postEditSchedule(yourObject);
-    console.log("chek update", res);
+    // console.log("chek update", res);
     if (res?.errCode === 0) {
       setShow1(false);
       toast.success("Cập nhật lịch trực thành công!");
@@ -93,7 +93,7 @@ const ModalEditSchedule = (props) => {
     // setBangCap("");
     // setChuyenMon("Nam");
     // setGioiTinh("");
-    console.log("close");
+    // console.log("close");
   };
   return (
     <>
@@ -190,3 +190,4 @@ const ModalEditSchedule = (props) => {
     </>
   );
 };
+export default ModalEditSchedule;

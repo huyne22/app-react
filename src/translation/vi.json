@@ -1,0 +1,69 @@
+{
+    "homeheader": {
+        "support" : "Hỗ trợ",
+        "specialist": "Chuyên khoa",
+        "health-facilities": "Cơ sở y tế",
+        "doctor": "Bác sĩ",
+        "examination-package": "Gói khám",
+        "Find-doctor-specialty": "Tìm bác sĩ theo chuyên khoa",
+        "choose-hospital-clinic" : "Chọn bệnh viện phòng khám",
+        "choose-good-doctor": "Chọn bác sĩ giỏi",
+        "General-health-check": "Khám sức khỏe tổng quát",
+        "medical-platform": "nền tảng y tế",
+        "Comprehensive-health-care": "chăm sóc sức khỏe toàn diện",
+        "Find-reason-check": "Tìm lý do khám",
+        "Welcome" : "Xin chào ,"
+    },
+    "banner": {
+        "Specialized-examination": "Khám chuyên khoa",
+        "Remote-examination": "Khám từ xa",
+        "General-examination": "Khám tổng quát",
+        "Medical-test":"Xét nghiệm y học",
+        "Mental-health" : "Sức khỏe tinh thần",
+        "Dental-examination" : "Khám nha khoa",
+        "Surgery-package" : "Gói phẩu thuật",
+        "Medical-products" : "Sản phẩm y tế",
+        "Health-test" : "Bài test sức khỏe",
+        "Healthcare-near-you" : "Y tế gần bạn"
+    },
+    "menu": {
+        "admin" : {
+            "manage-user" : "Người dùng",
+            "manage-doctor" : "Quản lý bác sĩ",
+            "manage-admin" : "Quản lý admin",
+            "crud" : "CRUD user",
+            "crud-redux" : "CRUD Redux",
+            "clinic" : "Phòng khám",
+            "manage-clinic" : "Quản lý phòng khám",
+            "specialty" : "Chuyên khoa",
+            "manage-specialty" : "Quản lý chuyên khoa",
+            "handbook" : "Cẩm nang",
+            "manage-handbook" : "Quản lý cẩm nang"
+         },
+         "doctor": {
+            "manage-schedule" : "Quản lý kế hoạch khám bệnh"
+         }
+    },
+    "manage-user": {
+        "add" : "Thêm mới người dùng",
+        "email" : "Email",
+        "password" : "Mật khẩu",
+        "firstName" : "Họ",
+        "lastName" : "Tên",
+        "phoneNumber" : "Số điện thoại",
+        "address" : "Địa chỉ",
+        "gender" : "Giới tính",
+        "position" : "Chức danh",
+        "role" : "Vai trò",
+        "image" : "Ảnh đại diện",
+        "save" : "Lưu user",
+        "edit" : "Cập nhật user"
+    },
+    "home-page":{
+        "outstanding-doctor" : "Bác sĩ nổi bật tuần qua",
+        "more-infor": "Xem thêm"
+    },
+    "manage-schedule": {
+        "title" : "Quản lý kế hoạch khám bệnh của bác sĩ"
+    }
+}

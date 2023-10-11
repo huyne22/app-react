@@ -1,8 +1,12 @@
 import axios from "../../axios";
-
+import config from "../../config";
+const apiBaseUrl = config.api.API_BASE_URL;
+const config1 = {
+  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+};
 const postLogin = async (TenDangNhap, MatKhau) => {
   try {
-    let user = await axios.post(`http://localhost:3030/api/login`, {
+    let user = await axios.post(`${apiBaseUrl}api/login`, {
       TenDangNhap,
       MatKhau,
     });
@@ -14,7 +18,7 @@ const postLogin = async (TenDangNhap, MatKhau) => {
 
 const postRegister = async (TenDangNhap, MatKhau) => {
   try {
-    let user = axios.post(`http://localhost:3030/api/create-new-user`, {
+    let user = axios.post(`${apiBaseUrl}api/create-new-user`, {
       TenDangNhap,
       MatKhau,
     });
@@ -36,7 +40,7 @@ const postCreatePatient = async (
   GhiChu
 ) => {
   try {
-    let data = await axios.post(`http://localhost:3030/api/create-patient`, {
+    let data = await axios.post(`${apiBaseUrl}api/create-patient`, {
       MaBN,
       HoBN,
       TenBN,
@@ -53,13 +57,22 @@ const postCreatePatient = async (
   }
 };
 
-const getAllPatient = (MaBN) => {
-  return axios.get(`http://localhost:3030/api/get-all-patient?id=${MaBN}`);
+const getAllPatient = (MaBN, page) => {
+  return axios.get(
+    `${apiBaseUrl}api/get-all-patient`,
+    {
+      params: {
+        id: MaBN,
+        page: page,
+      },
+    },
+    config1
+  );
 };
 
 const postEditPatient = async (data) => {
   try {
-    let user = await axios.post(`http://localhost:3030/api/update-patient`, {
+    let user = await axios.post(`${apiBaseUrl}api/update-patient`, {
       data,
     });
     return user;
@@ -69,7 +82,7 @@ const postEditPatient = async (data) => {
 };
 const postDeletePatient = async (data) => {
   try {
-    let user = await axios.post(`http://localhost:3030/api/delete-patient`, {
+    let user = await axios.post(`${apiBaseUrl}api/delete-patient`, {
       data,
     });
     return user;
@@ -86,36 +99,33 @@ const postCreateMedicalService = async (
   GhiChu
 ) => {
   try {
-    let data = await axios.post(
-      `http://localhost:3030/api/create-medical-service`,
-      {
-        MaDV,
-        TenDV,
-        MoTaDV,
-        GiaTien,
-        GhiChu,
-      }
-    );
+    let data = await axios.post(`${apiBaseUrl}api/create-medical-service`, {
+      MaDV,
+      TenDV,
+      MoTaDV,
+      GiaTien,
+      GhiChu,
+    });
     return data;
   } catch (e) {
     console.log(e);
   }
 };
 
-const getAllMedicalService = (MaDV) => {
-  return axios.get(
-    `http://localhost:3030/api/get-all-medical-service?id=${MaDV}`
-  );
+const getAllMedicalService = (MaDV, page) => {
+  return axios.get(`${apiBaseUrl}api/get-all-medical-service`, {
+    params: {
+      id: MaDV,
+      page: page,
+    },
+  });
 };
 
 const postEditMedicalService = async (data) => {
   try {
-    let user = await axios.post(
-      `http://localhost:3030/api/update-medical-service`,
-      {
-        data,
-      }
-    );
+    let user = await axios.post(`${apiBaseUrl}api/update-medical-service`, {
+      data,
+    });
     return user;
   } catch (e) {
     console.log(e);
@@ -123,12 +133,9 @@ const postEditMedicalService = async (data) => {
 };
 const postDeleteMedicalService = async (data) => {
   try {
-    let user = await axios.post(
-      `http://localhost:3030/api/delete-medical-service`,
-      {
-        data,
-      }
-    );
+    let user = await axios.post(`${apiBaseUrl}api/delete-medical-service`, {
+      data,
+    });
     return user;
   } catch (e) {
     console.log(e);
@@ -149,7 +156,7 @@ const postCreateDoctor = async (
   GhiChu
 ) => {
   try {
-    let data = await axios.post(`http://localhost:3030/api/create-doctor`, {
+    let data = await axios.post(`${apiBaseUrl}api/create-doctor`, {
       MaBS,
       HoBS,
       TenBS,
@@ -167,13 +174,18 @@ const postCreateDoctor = async (
   }
 };
 
-const getAllDoctor = (MaBS) => {
-  return axios.get(`http://localhost:3030/api/get-all-doctor?id=${MaBS}`);
+const getAllDoctor = (MaBS, page) => {
+  return axios.get(`${apiBaseUrl}api/get-all-doctor`, {
+    params: {
+      id: MaBS,
+      page: page,
+    },
+  });
 };
 
 const postEditDoctor = async (data) => {
   try {
-    let user = await axios.post(`http://localhost:3030/api/update-doctor`, {
+    let user = await axios.post(`${apiBaseUrl}api/update-doctor`, {
       data,
     });
     return user;
@@ -183,7 +195,7 @@ const postEditDoctor = async (data) => {
 };
 const postDeleteDoctor = async (data) => {
   try {
-    let user = await axios.post(`http://localhost:3030/api/delete-doctor`, {
+    let user = await axios.post(`${apiBaseUrl}api/delete-doctor`, {
       data,
     });
     return user;
@@ -206,7 +218,7 @@ const postCreateNurse = async (
   GhiChu
 ) => {
   try {
-    let data = await axios.post(`http://localhost:3030/api/create-nurse`, {
+    let data = await axios.post(`${apiBaseUrl}api/create-nurse`, {
       MaYT,
       HoYT,
       TenYT,
@@ -224,13 +236,18 @@ const postCreateNurse = async (
   }
 };
 
-const getAllNurse = (MaYT) => {
-  return axios.get(`http://localhost:3030/api/get-all-nurse?id=${MaYT}`);
+const getAllNurse = (MaYT, page) => {
+  return axios.get(`${apiBaseUrl}api/get-all-nurse`, {
+    params: {
+      id: MaYT,
+      page: page,
+    },
+  });
 };
 
 const postEditNurse = async (data) => {
   try {
-    let user = await axios.post(`http://localhost:3030/api/update-nurse`, {
+    let user = await axios.post(`${apiBaseUrl}api/update-nurse`, {
       data,
     });
     return user;
@@ -240,7 +257,7 @@ const postEditNurse = async (data) => {
 };
 const postDeleteNurse = async (data) => {
   try {
-    let user = await axios.post(`http://localhost:3030/api/delete-nurse`, {
+    let user = await axios.post(`${apiBaseUrl}api/delete-nurse`, {
       data,
     });
     return user;
@@ -252,36 +269,32 @@ const postDeleteNurse = async (data) => {
 //schedule
 const postCreateSchedule = async (Ngay, Buoi, MaBS, SoLuongBNToiDa, GhiChu) => {
   try {
-    let data = await axios.post(
-      `http://localhost:3030/api/create-doctor-schedule`,
-      {
-        Ngay,
-        Buoi,
-        MaBS,
-        SoLuongBNToiDa,
-        GhiChu,
-      }
-    );
+    let data = await axios.post(`${apiBaseUrl}api/create-doctor-schedule`, {
+      Ngay,
+      Buoi,
+      MaBS,
+      SoLuongBNToiDa,
+      GhiChu,
+    });
     return data;
   } catch (e) {
     console.log(e);
   }
 };
 
-const getAllSchedule = (ALL) => {
-  return axios.get(
-    `http://localhost:3030/api/get-all-doctor-schedule?id=${ALL}`
-  );
+const getAllSchedule = (All, page) => {
+  return axios.get(`${apiBaseUrl}api/get-all-doctor-schedule`, {
+    params: {
+      id: All,
+      page: page,
+    },
+  });
 };
-
 const postEditSchedule = async (data) => {
   try {
-    let user = await axios.post(
-      `http://localhost:3030/api/update-doctor-schedule`,
-      {
-        data,
-      }
-    );
+    let user = await axios.post(`${apiBaseUrl}api/update-doctor-schedule`, {
+      data,
+    });
     return user;
   } catch (e) {
     console.log(e);
@@ -289,14 +302,11 @@ const postEditSchedule = async (data) => {
 };
 const postDeleteSchedule = async (Ngay, Buoi, MaBS) => {
   try {
-    let user = await axios.post(
-      `http://localhost:3030/api/delete-doctor-schedule`,
-      {
-        Ngay,
-        Buoi,
-        MaBS,
-      }
-    );
+    let user = await axios.post(`${apiBaseUrl}api/delete-doctor-schedule`, {
+      Ngay,
+      Buoi,
+      MaBS,
+    });
     return user;
   } catch (e) {
     console.log(e);
@@ -306,37 +316,34 @@ const postDeleteSchedule = async (Ngay, Buoi, MaBS) => {
 //appointment
 const postCreateAppointment = async (Ngay, Buoi, MaBS, MaBN) => {
   try {
-    let data = await axios.post(
-      `http://localhost:3030/api/create-patient-appointment`,
-      {
-        Ngay,
-        Buoi,
-        MaBS,
-        MaBN,
-      }
-    );
+    let data = await axios.post(`${apiBaseUrl}api/create-patient-appointment`, {
+      Ngay,
+      Buoi,
+      MaBS,
+      MaBN,
+    });
     return data;
   } catch (e) {
     console.log(e);
   }
 };
 
-const getAllAppointment = (ALL) => {
-  return axios.get(
-    `http://localhost:3030/api/get-all-patient-appointment?id=${ALL}`
-  );
+const getAllAppointment = (ALL, page) => {
+  return axios.get(`${apiBaseUrl}api/get-all-patient-appointment`, {
+    params: {
+      id: ALL,
+      page: page,
+    },
+  });
 };
 const postDeleteAppointment = async (Ngay, Buoi, MaBS, MaBN) => {
   try {
-    let user = await axios.post(
-      `http://localhost:3030/api/delete-patient-appointment`,
-      {
-        Ngay,
-        Buoi,
-        MaBS,
-        MaBN,
-      }
-    );
+    let user = await axios.post(`${apiBaseUrl}api/delete-patient-appointment`, {
+      Ngay,
+      Buoi,
+      MaBS,
+      MaBN,
+    });
     return user;
   } catch (e) {
     console.log(e);
@@ -351,41 +358,42 @@ const postCreateExamination = async (
   Buoi,
   MaYTa,
   KetQuaChuanDoanBenh,
-  GhiChu
+  GhiChu,
+  MaThuoc,
+  ThanhToan
 ) => {
   try {
-    let data = await axios.post(
-      `http://localhost:3030/api/create-medical-examination`,
-      {
-        MaBS,
-        MaBN,
-        Ngay,
-        Buoi,
-        MaYTa,
-        KetQuaChuanDoanBenh,
-        GhiChu,
-      }
-    );
+    let data = await axios.post(`${apiBaseUrl}api/create-medical-examination`, {
+      MaBS,
+      MaBN,
+      Ngay,
+      Buoi,
+      MaYTa,
+      KetQuaChuanDoanBenh,
+      GhiChu,
+      MaThuoc,
+      ThanhToan,
+    });
     return data;
   } catch (e) {
     console.log(e);
   }
 };
 
-const getAllExamination = (ALL) => {
-  return axios.get(
-    `http://localhost:3030/api/get-all-medical-examination?id=${ALL}`
-  );
+const getAllExamination = (ALL, page) => {
+  return axios.get(`${apiBaseUrl}api/get-all-medical-examination`, {
+    params: {
+      id: ALL,
+      page: page,
+    },
+  });
 };
 
 const postEditExamination = async (data) => {
   try {
-    let user = await axios.post(
-      `http://localhost:3030/api/update-medical-examination`,
-      {
-        data,
-      }
-    );
+    let user = await axios.post(`${apiBaseUrl}api/update-medical-examination`, {
+      data,
+    });
     return user;
   } catch (e) {
     console.log(e);
@@ -393,15 +401,12 @@ const postEditExamination = async (data) => {
 };
 const postDeleteExamination = async (MaBS, MaBN, Ngay, Buoi) => {
   try {
-    let user = await axios.post(
-      `http://localhost:3030/api/delete-medical-examination`,
-      {
-        MaBS,
-        MaBN,
-        Ngay,
-        Buoi,
-      }
-    );
+    let user = await axios.post(`${apiBaseUrl}api/delete-medical-examination`, {
+      MaBS,
+      MaBN,
+      Ngay,
+      Buoi,
+    });
     return user;
   } catch (e) {
     console.log(e);
@@ -419,7 +424,7 @@ const postCreatePatientMedicalService = async (
 ) => {
   try {
     let data = await axios.post(
-      `http://localhost:3030/api/create-patient-medical-service`,
+      `${apiBaseUrl}api/create-patient-medical-service`,
       {
         MaBN,
         MaDV,
@@ -435,16 +440,19 @@ const postCreatePatientMedicalService = async (
   }
 };
 
-const getAllPatientMedicalService = (ALL) => {
-  return axios.get(
-    `http://localhost:3030/api/get-all-patient-medical-service?id=${ALL}`
-  );
+const getAllPatientMedicalService = (ALL, page) => {
+  return axios.get(`${apiBaseUrl}api/get-all-patient-medical-service`, {
+    params: {
+      id: ALL,
+      page: page,
+    },
+  });
 };
 
 const postEditPatientMedicalService = async (data) => {
   try {
     let user = await axios.post(
-      `http://localhost:3030/api/update-patient-medical-service`,
+      `${apiBaseUrl}api/update-patient-medical-service`,
       {
         data,
       }
@@ -457,7 +465,7 @@ const postEditPatientMedicalService = async (data) => {
 const postDeletePatientMedicalService = async (MaBN, MaDV, Ngay, Buoi) => {
   try {
     let user = await axios.post(
-      `http://localhost:3030/api/delete-patient-medical-service`,
+      `${apiBaseUrl}api/delete-patient-medical-service`,
       {
         MaBN,
         MaDV,
@@ -470,6 +478,191 @@ const postDeletePatientMedicalService = async (MaBN, MaDV, Ngay, Buoi) => {
     console.log(e);
   }
 };
+
+const getPatientSearch = async (sdt) => {
+  try {
+    console.log("sdt", sdt);
+    const response = await axios.post("${apiBaseUrl}api/get-patient-search", {
+      sdt,
+    });
+    return response;
+  } catch (error) {
+    console.error("Lỗi khi gọi API:", error);
+    throw error; // Re-throw lỗi để xử lý ở phần gọi hàm getPatientSearch
+  }
+};
+
+const getAppointmentSearch = async (ngay) => {
+  try {
+    console.log("ngay", ngay);
+    const response = await axios.post(
+      "${apiBaseUrl}api/get-patient-apointment-search",
+      {
+        ngay,
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error("Lỗi khi gọi API:", error);
+    throw error; // Re-throw lỗi để xử lý ở phần gọi hàm getPatientSearch
+  }
+};
+
+const getScheduleSearch = async (ngay) => {
+  try {
+    console.log("ngay", ngay);
+    const response = await axios.post(
+      "${apiBaseUrl}api/get-doctor-schedule-search",
+      {
+        ngay,
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error("Lỗi khi gọi API:", error);
+    throw error; // Re-throw lỗi để xử lý ở phần gọi hàm getPatientSearch
+  }
+};
+
+const getMedicalExaminationSearch = async (ngay) => {
+  try {
+    console.log("ngay", ngay);
+    const response = await axios.post(
+      "${apiBaseUrl}api/get-medical-examination-search",
+      {
+        ngay,
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error("Lỗi khi gọi API:", error);
+    throw error; // Re-throw lỗi để xử lý ở phần gọi hàm getPatientSearch
+  }
+};
+
+const getPatientMedicalServiceSearch = async (ngay) => {
+  try {
+    console.log("ngay", ngay);
+    const response = await axios.post(
+      "${apiBaseUrl}api/get-patient-medical-service-search",
+      {
+        ngay,
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error("Lỗi khi gọi API:", error);
+    throw error; // Re-throw lỗi để xử lý ở phần gọi hàm getPatientSearch
+  }
+};
+
+const getMedicalServiceSearch = async (tenDV) => {
+  try {
+    console.log("tenDV", tenDV);
+    const response = await axios.post(
+      `${apiBaseUrl}api/get-medical-service-search`,
+      {
+        tenDV,
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error("Lỗi khi gọi API:", error);
+    throw error; // Re-throw lỗi để xử lý ở phần gọi hàm getPatientSearch
+  }
+};
+
+const getDoctorSearch = async (tenBS) => {
+  try {
+    console.log("tenBS", tenBS);
+    const response = await axios.post(`${apiBaseUrl}api/get-doctor-search`, {
+      tenBS,
+    });
+    return response;
+  } catch (error) {
+    console.error("Lỗi khi gọi API:", error);
+    throw error; // Re-throw lỗi để xử lý ở phần gọi hàm getPatientSearch
+  }
+};
+
+const getNurseSearch = async (tenYT) => {
+  try {
+    console.log("tenYT", tenYT);
+    const response = await axios.post(`${apiBaseUrl}api/get-nurse-search`, {
+      tenYT,
+    });
+    return response;
+  } catch (error) {
+    console.error("Lỗi khi gọi API:", error);
+    throw error; // Re-throw lỗi để xử lý ở phần gọi hàm getPatientSearch
+  }
+};
+
+const getMedicineSearch = async (TenThuoc) => {
+  try {
+    console.log("TenThuoc", TenThuoc);
+    const response = await axios.post(`${apiBaseUrl}api/get-medicine-search`, {
+      TenThuoc,
+    });
+    return response;
+  } catch (error) {
+    console.error("Lỗi khi gọi API:", error);
+    throw error; // Re-throw lỗi để xử lý ở phần gọi hàm getPatientSearch
+  }
+};
+const postCreateMedicine = async (
+  MaThuoc,
+  TenThuoc,
+  CongDung,
+  DonVi,
+  SoLuong,
+  GhiChu
+) => {
+  try {
+    let data = await axios.post(`${apiBaseUrl}api/create-medicine`, {
+      MaThuoc,
+      TenThuoc,
+      CongDung,
+      DonVi,
+      SoLuong,
+      GhiChu,
+    });
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const getAllMedicine = (MaThuoc, page) => {
+  return axios.get(`${apiBaseUrl}api/get-all-medicine`, {
+    params: {
+      id: MaThuoc,
+      page: page,
+    },
+  });
+};
+
+const postEditMedicine = async (data) => {
+  try {
+    let user = await axios.post(`${apiBaseUrl}api/update-medicine`, {
+      data,
+    });
+    return user;
+  } catch (e) {
+    console.log(e);
+  }
+};
+const postDeleteMedicine = async (data) => {
+  try {
+    let user = await axios.post(`${apiBaseUrl}api/delete-medicine`, {
+      data,
+    });
+    return user;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export {
   postLogin,
   postRegister,
@@ -504,4 +697,17 @@ export {
   getAllPatientMedicalService,
   postEditPatientMedicalService,
   postDeletePatientMedicalService,
+  getPatientSearch,
+  getAppointmentSearch,
+  getScheduleSearch,
+  getMedicalExaminationSearch,
+  getPatientMedicalServiceSearch,
+  getMedicalServiceSearch,
+  getDoctorSearch,
+  getNurseSearch,
+  getMedicineSearch,
+  postCreateMedicine,
+  getAllMedicine,
+  postEditMedicine,
+  postDeleteMedicine,
 };

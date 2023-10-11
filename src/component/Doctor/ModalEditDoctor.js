@@ -25,7 +25,7 @@ const ModalEditDoctor = (props) => {
     setYourObject(updatedObject); // Cập nhật đối tượng với thuộc tính mới
   };
   useEffect(() => {
-    console.log("dataUpdate");
+    // console.log("dataUpdate");
     if (!_.isEmpty(dataUpdate)) {
       setMaBS(dataUpdate.MaBS);
       setHoBS(dataUpdate.HoBS);
@@ -114,7 +114,7 @@ const ModalEditDoctor = (props) => {
 
   const handleSubmit = async (e) => {
     let res = await postEditDoctor(yourObject);
-    console.log(res);
+    // console.log(res);
     if (res?.errCode === 0) {
       setShow1(false);
       toast.success("Cập nhật bác sĩ thành công!");
@@ -129,15 +129,6 @@ const ModalEditDoctor = (props) => {
 
   const handleClose = () => {
     setShow1(false);
-    // setMaBS("");
-    // setHoBS("");
-    // setTenBS("");
-    // setSoDT("");
-    // setEmail("");
-    // setBangCap("");
-    // setChuyenMon("Nam");
-    // setGioiTinh("");
-    console.log("close");
   };
   return (
     <>

@@ -5,10 +5,11 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import withAuth from "./withAuth";
 const Admin = (props) => {
   const [collapsed, setCollapsed] = useState(false);
 
-  console.log("in ra ", props.data);
+  // console.log("in ra ", props.data);
   return (
     <>
       <div className="admin-container">
@@ -39,4 +40,4 @@ const Admin = (props) => {
     </>
   );
 };
-export default Admin;
+export default withAuth(Admin);

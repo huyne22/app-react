@@ -56,7 +56,7 @@ const SideBar = (props) => {
 
         <SidebarContent>
           <Menu iconShape="circle">
-            <SubMenu icon={<FaGem />} title="Service">
+            <SubMenu icon={<FaGem />} title="Quản lý">
               <MenuItem icon={<MdDashboard />}>
                 Quản lý bác sĩ
                 <Link to="/admins/manage-doctor" />
@@ -65,10 +65,14 @@ const SideBar = (props) => {
                 Quản lý y tá
                 <Link to="/admins/manage-nurse" />
               </MenuItem>
+              <MenuItem icon={<FaGem />}>
+                Quản lý thuốc
+                <Link to="/admins/manage-medicine" />
+              </MenuItem>
             </SubMenu>
           </Menu>
           <Menu iconShape="circle">
-            <SubMenu icon={<FaGem />} title="Features">
+            <SubMenu icon={<FaGem />} title="Dịch vụ">
               <MenuItem>
                 Quản lý bệnh nhân
                 <Link to="/admins/manage-patient" />
@@ -105,7 +109,7 @@ const SideBar = (props) => {
             }}
           >
             <a
-              href="https://github.com/huyne22/app-react"
+              href="/"
               target="_blank"
               className="sidebar-btn"
               rel="noopener noreferrer"
@@ -117,7 +121,7 @@ const SideBar = (props) => {
                   overflow: "hidden",
                 }}
               >
-                &#169; HoiDanIT
+                &#169; Hỗ trợ:
               </span>
             </a>
           </div>

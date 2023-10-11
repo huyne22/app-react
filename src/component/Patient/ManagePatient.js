@@ -1,10 +1,12 @@
 import { FcPlus } from "react-icons/fc";
 import { useState, useEffect } from "react";
-import { getAllPatient } from "../service/apiService";
+import { getAllPatient, getPatientSearch } from "../service/apiService";
 import ModalCreatePatient from "./ModalCreatePatient";
 import TableListPatient from "./TableListPatient";
 import ModalEditPatient from "./ModalEditPatient";
 import ModalDeletePatient from "./ModalDeletePatient";
+import SearchPhone from "./service/SearchPhone";
+import withAuth from "../Admin/withAuth";
 // import withAuth from "../Admin/withAuth";
 const ManagePatient = (props) => {
   const [show, setShow] = useState(false);
@@ -12,19 +14,24 @@ const ManagePatient = (props) => {
   const [show2, setShow2] = useState(false);
   const [dataUpdate, setDataUpdate] = useState({});
   const [listPatient, setListPatient] = useState([]);
+  const [totalPage, setTotalPage] = useState(0);
+  const [totalUser, setTotalUser] = useState(0);
 
   //call api render list bệnh nhân
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+    const token = 2;
     if (token) {
+      console.log("token", token);
       fetchListPatient();
     }
   }, []);
-  const fetchListPatient = async () => {
-    let res = await getAllPatient("ALL");
+  const fetchListPatient = async (page) => {
+    let res = await getAllPatient("ALL", page);
     console.log("check res", res);
     if (res && res.errCode == 0) {
-      setListPatient(res.data);
+      setListPatient(res?.data);
+      setTotalUser(res?.pagination?.total);
+      setTotalPage(res?.pagination?.totalpage);
     }
   };
 
@@ -36,8 +43,14 @@ const ManagePatient = (props) => {
   const handleBtnDelete = (patient) => {
     setShow2(true);
     setDataUpdate(patient);
-    console.log("show2", show2);
-    console.log("dataUpdate", dataUpdate);
+    // console.log("show2", show2);
+    // console.log("dataUpdate", dataUpdate);
+  };
+  const handleSearchPhone = async (search) => {
+    let tel = { SoDT: search.toString() };
+    let res = await getPatientSearch(tel);
+    // console.log("check res", res);
+    return res;
   };
 
   return (
@@ -51,9 +64,13 @@ const ManagePatient = (props) => {
           </button>
         </div>
       </div>
+      <SearchPhone onSearch={handleSearchPhone} />
+
       <div className="table-user-container">
         <TableListPatient
           listPatient={listPatient}
+          totalPage={totalPage}
+          fetchListPatient={fetchListPatient}
           handleBtnUpdate={handleBtnUpdate}
           handleBtnDelete={handleBtnDelete}
         />
@@ -78,4 +95,4 @@ const ManagePatient = (props) => {
     </div>
   );
 };
-export default ManagePatient;
+export default withAuth(ManagePatient);

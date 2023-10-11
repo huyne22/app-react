@@ -1,27 +1,33 @@
 import { FcPlus } from "react-icons/fc";
 import { useState, useEffect } from "react";
-import { getAllDoctor } from "../service/apiService";
+import { getAllDoctor, getDoctorSearch } from "../service/apiService";
 import ModalCreateDoctor from "./ModalCreateDoctor";
 import TableListDoctor from "./TableListDoctor";
 import ModalEditDoctor from "./ModalEditDoctor";
 import ModalDeleteDoctor from "./ModalDeleteDoctor";
+import SearchName from "./service/searchName.js";
 
+import withAuth from "../Admin/withAuth";
 const ManageDoctor = (props) => {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
   const [dataUpdate, setDataUpdate] = useState({});
   const [listDoctor, setListDoctor] = useState([]);
+  const [totalPage, setTotalPage] = useState(0);
+  const [totalUser, setTotalUser] = useState(0);
 
   //call api render list bác sĩ
   useEffect(() => {
     fetchListDoctor();
   }, []);
-  const fetchListDoctor = async () => {
-    let res = await getAllDoctor("ALL");
-    console.log("check res", res);
+  const fetchListDoctor = async (page) => {
+    let res = await getAllDoctor("ALL", page);
+    // console.log("check res", res);
     if (res && res.errCode == 0) {
       setListDoctor(res.data);
+      setTotalUser(res?.pagination?.total);
+      setTotalPage(res?.pagination?.totalpage);
     }
   };
 
@@ -33,8 +39,13 @@ const ManageDoctor = (props) => {
   const handleBtnDelete = (doctor) => {
     setShow2(true);
     setDataUpdate(doctor);
-    console.log("show2", show2);
-    console.log("dataUpdate", dataUpdate);
+  };
+  const handleSearchName = async (search) => {
+    console.log("a", search);
+    let tenBS = search;
+    let res = await getDoctorSearch(tenBS);
+    console.log("check res", res);
+    return res;
   };
 
   return (
@@ -49,7 +60,11 @@ const ManageDoctor = (props) => {
         </div>
       </div>
       <div className="table-user-container">
+        <SearchName onSearch={handleSearchName} />
+
         <TableListDoctor
+          fetchListDoctor={fetchListDoctor}
+          totalPage={totalPage}
           listDoctor={listDoctor}
           handleBtnUpdate={handleBtnUpdate}
           handleBtnDelete={handleBtnDelete}
@@ -75,4 +90,4 @@ const ManageDoctor = (props) => {
     </div>
   );
 };
-export default ManageDoctor;
+export default withAuth(ManageDoctor);

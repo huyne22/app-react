@@ -25,7 +25,7 @@ const ModalEditNurse = (props) => {
     setYourObject(updatedObject); // Cập nhật đối tượng với thuộc tính mới
   };
   useEffect(() => {
-    console.log("dataUpdate");
+    // console.log("dataUpdate");
     if (!_.isEmpty(dataUpdate)) {
       setMaYT(dataUpdate.MaYT);
       setHoYT(dataUpdate.HoYT);
@@ -114,7 +114,7 @@ const ModalEditNurse = (props) => {
 
   const handleSubmit = async (e) => {
     let res = await postEditNurse(yourObject);
-    console.log("chek update", res);
+    // console.log("chek update", res);
     if (res?.errCode === 0) {
       setShow1(false);
       toast.success("Cập nhật y tá thành công!");
@@ -137,7 +137,7 @@ const ModalEditNurse = (props) => {
     // setBangCap("");
     // setChuyenMon("Nam");
     // setGioiTinh("");
-    console.log("close");
+    // console.log("close");
   };
   return (
     <>

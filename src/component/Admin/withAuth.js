@@ -1,22 +1,21 @@
-import React from "react";
-import DashBoard from "./DashBoard";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-const withAuth = (props) => {
-  return (props) => {
+import { useSelector } from "react-redux";
+const withAuth = (WrappedComponent) => {
+  const WithAuthComponent = (props) => {
     const navigate = useNavigate();
-
-    const token = localStorage.getItem("accessToken");
-
-    if (!token) {
-      // Nếu không có token, chuyển hướng đến trang đăng nhập
-      navigate("/login");
-      return null;
-    }
-
+    const isAuth = useSelector((state) => state?.user?.isAuth);
+    useEffect(() => {
+      if (!isAuth) {
+        // console.log("kad");
+        navigate("/login");
+      }
+    }, [navigate]);
     // Nếu có token, render component WrappedComponent
-    return <DashBoard {...props} />;
+    return <WrappedComponent {...props} />;
   };
+
+  return WithAuthComponent;
 };
 
 export default withAuth;

@@ -11,8 +11,8 @@ const ModalDeleteAppointment = (props) => {
   const handleClose2 = () => setShow2(false);
   const handleSubmit2 = async (e) => {
     // let a = { Ngay: dataUpdate.Ngay.toString() };
-    console.log("a", dataUpdate.Ngay);
-    console.log("dataUpdate", dataUpdate);
+    // console.log("a", dataUpdate.Ngay);
+    // console.log("dataUpdate", dataUpdate);
     let res = await postDeleteAppointment(
       dataUpdate.Ngay,
       dataUpdate.Buoi,
@@ -20,8 +20,14 @@ const ModalDeleteAppointment = (props) => {
       dataUpdate.MaBN
     );
     console.log("res", res);
-
-    await fetchListAppointment();
+    if (res?.errCode == 0) {
+      toast.success("Xóa phiếu cuộc hẹn thành công!");
+      await fetchListAppointment();
+    } else if (res?.errCode == 3) {
+      toast.info("Không có trường dữ liệu nào được Xóa!");
+    } else {
+      toast.error("Xóa phiếu cuộc hẹn thất bại!");
+    }
     handleClose2(); // Đóng modal sau khi xác nhận xóa
   };
   return (

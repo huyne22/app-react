@@ -24,7 +24,7 @@ const ModalEditPatient = (props) => {
     setYourObject(updatedObject); // Cập nhật đối tượng với thuộc tính mới
   };
   useEffect(() => {
-    console.log("dataUpdate");
+    // console.log("dataUpdate");
     if (!_.isEmpty(dataUpdate)) {
       setMaBN(dataUpdate.MaBN);
       setHoBN(dataUpdate.HoBN);
@@ -104,10 +104,10 @@ const ModalEditPatient = (props) => {
   }, [ghiChu]);
 
   const handleSubmit = async (e) => {
-    console.log("yourObject", yourObject.NgaySinh);
+    // console.log("yourObject", yourObject.NgaySinh);
 
     let res = await postEditPatient(yourObject);
-    console.log(res);
+    // console.log(res);
     if (res?.errCode === 0) {
       setShow1(false);
       toast.success("Cập nhật bệnh nhân thành công!");
@@ -130,7 +130,7 @@ const ModalEditPatient = (props) => {
     // setNgaySinh("");
     // setGioiTinh("Nam");
     // setDiaChi("");
-    console.log("close");
+    // console.log("close");
   };
   return (
     <>

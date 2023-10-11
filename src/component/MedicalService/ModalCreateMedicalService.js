@@ -29,7 +29,7 @@ const ModalCreateMedicalService = (props) => {
       giaTien,
       ghiChu
     );
-    console.log(res);
+    // console.log(res);
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới dịch vụ thành công!");

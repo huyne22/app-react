@@ -1,27 +1,33 @@
 import { FcPlus } from "react-icons/fc";
 import { useState, useEffect } from "react";
-import { getAllNurse } from "../service/apiService";
+import { getAllNurse, getNurseSearch } from "../service/apiService";
 import ModalCreateNurse from "./ModalCreateNurse";
 import TableListNurse from "./TableListNurse";
 import ModalEditNurse from "./ModalEditNurse";
 import ModalDeleteNurse from "./ModalDeleteNurse";
+import SearchName from "./service/searchName.js";
 
+import withAuth from "../Admin/withAuth";
 const ManageNurse = (props) => {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
   const [dataUpdate, setDataUpdate] = useState({});
   const [listNurse, setListNurse] = useState([]);
+  const [totalPage, setTotalPage] = useState(0);
+  const [totalUser, setTotalUser] = useState(0);
 
   //call api render list y tá
   useEffect(() => {
     fetchListNurse();
   }, []);
-  const fetchListNurse = async () => {
-    let res = await getAllNurse("ALL");
-    console.log("check res", res);
+  const fetchListNurse = async (page) => {
+    let res = await getAllNurse("ALL", page);
+    // console.log("check res", res);
     if (res && res.errCode == 0) {
       setListNurse(res.data);
+      setTotalUser(res?.pagination?.total);
+      setTotalPage(res?.pagination?.totalpage);
     }
   };
 
@@ -33,8 +39,15 @@ const ManageNurse = (props) => {
   const handleBtnDelete = (nurse) => {
     setShow2(true);
     setDataUpdate(nurse);
-    console.log("show2", show2);
-    console.log("dataUpdate", dataUpdate);
+    // console.log("show2", show2);
+    // console.log("dataUpdate", dataUpdate);
+  };
+  const handleSearchName = async (search) => {
+    console.log("a", search);
+    let tenYT = search;
+    let res = await getNurseSearch(tenYT);
+    console.log("check res", res);
+    return res;
   };
 
   return (
@@ -49,7 +62,11 @@ const ManageNurse = (props) => {
         </div>
       </div>
       <div className="table-user-container">
+        <SearchName onSearch={handleSearchName} />
+
         <TableListNurse
+          fetchListNurse={fetchListNurse}
+          totalPage={totalPage}
           listNurse={listNurse}
           handleBtnUpdate={handleBtnUpdate}
           handleBtnDelete={handleBtnDelete}
@@ -75,4 +92,4 @@ const ManageNurse = (props) => {
     </div>
   );
 };
-export default ManageNurse;
+export default withAuth(ManageNurse);

@@ -1,7 +1,12 @@
 import React from "react";
+import Paginate from "../../Layout/Paginate";
 
 const TableListAppointment = (props) => {
-  const { listAppointment } = props;
+  const { listAppointment, totalPage, fetchListAppointment } = props;
+  const handlePageClick = (e) => {
+    let selectedPage = e.selected + 1;
+    fetchListAppointment(selectedPage);
+  };
   return (
     <>
       <div
@@ -21,8 +26,8 @@ const TableListAppointment = (props) => {
           </thead>
           <tbody>
             {listAppointment &&
-              listAppointment?.map((item) => (
-                <tr key={item.Ngay}>
+              listAppointment?.map((item, index) => (
+                <tr key={index}>
                   <td>{item.Ngay.split("T")[0]}</td>
                   <td>{item.Buoi}</td>
                   <td>{item.MaBS}</td>
@@ -47,6 +52,7 @@ const TableListAppointment = (props) => {
           </tbody>
         </table>
       </div>
+      <Paginate handlePageClick={handlePageClick} totalPage={totalPage} />
     </>
   );
 };

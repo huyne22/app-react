@@ -12,9 +12,15 @@ const ModalDeleteMedicalService = (props) => {
   const handleSubmit2 = async (e) => {
     let a = { MaDV: dataUpdate.MaDV.toString() };
     let res = await postDeleteMedicalService(a);
-    console.log("res", res);
-
-    await fetchListMedicalService();
+    // console.log("res", res);
+    if (res?.errCode == 0) {
+      toast.success("Xóa dịch vụ y tế thành công!");
+      await fetchListMedicalService();
+    } else if (res?.errCode == 3) {
+      toast.info("Không có trường dữ liệu nào được Xóa!");
+    } else {
+      toast.error("Xóa dịch vụ y tế thất bại!");
+    }
     handleClose2(); // Đóng modal sau khi xác nhận xóa
   };
   return (

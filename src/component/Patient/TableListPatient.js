@@ -1,7 +1,11 @@
 import React from "react";
-
+import Paginate from "../../Layout/Paginate";
 const TableListPatient = (props) => {
-  const { listPatient } = props;
+  const { listPatient, totalPage, fetchListPatient } = props;
+  const handlePageClick = (e) => {
+    let selectedPage = e.selected + 1;
+    fetchListPatient(selectedPage);
+  };
   return (
     <>
       <div
@@ -57,6 +61,7 @@ const TableListPatient = (props) => {
           </tbody>
         </table>
       </div>
+      <Paginate handlePageClick={handlePageClick} totalPage={totalPage} />
     </>
   );
 };

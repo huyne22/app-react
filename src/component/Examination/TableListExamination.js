@@ -1,7 +1,12 @@
 import React from "react";
+import Paginate from "../../Layout/Paginate";
 
 const TableListExamination = (props) => {
-  const { listExamination } = props;
+  const { listExamination, totalPage, fetchListExamination } = props;
+  const handlePageClick = (e) => {
+    let selectedPage = e.selected + 1;
+    fetchListExamination(selectedPage);
+  };
   return (
     <>
       <div
@@ -19,13 +24,15 @@ const TableListExamination = (props) => {
               <th>MaYTa</th>
               <th>KetQuaChuanDoanBenh</th>
               <th>GhiChu</th>
+              <th>MaThuoc</th>
+              <th>ThanhToan</th>
               <th>Hành Động</th>
             </tr>
           </thead>
           <tbody>
             {listExamination &&
-              listExamination?.map((item) => (
-                <tr key={item.MaBS}>
+              listExamination?.map((item, index) => (
+                <tr key={index}>
                   <td>{item.MaBS}</td>
                   <td>{item.MaBN}</td>
                   <td>{item.Ngay}</td>
@@ -33,6 +40,8 @@ const TableListExamination = (props) => {
                   <td>{item.MaYTa}</td>
                   <td>{item.KetQuaChuanDoanBenh}</td>
                   <td>{item.GhiChu}</td>
+                  <td>{item.MaThuoc}</td>
+                  <td>{item.ThanhToan}</td>
                   <td>
                     <button
                       className="btn btn-warning"
@@ -53,6 +62,7 @@ const TableListExamination = (props) => {
           </tbody>
         </table>
       </div>
+      <Paginate handlePageClick={handlePageClick} totalPage={totalPage} />
     </>
   );
 };

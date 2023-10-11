@@ -12,9 +12,15 @@ const ModalDeleteNurse = (props) => {
   const handleSubmit2 = async (e) => {
     let a = { MaYT: dataUpdate.MaYT.toString() };
     let res = await postDeleteNurse(a);
-    console.log("res", res);
-
-    await fetchListNurse();
+    // console.log("res", res);
+    if (res?.errCode == 0) {
+      toast.success("Xóa y tá thành công!");
+      await fetchListNurse();
+    } else if (res?.errCode == 3) {
+      toast.info("Không có trường dữ liệu nào được Xóa!");
+    } else {
+      toast.error("Xóa y tá thất bại!");
+    }
     handleClose2(); // Đóng modal sau khi xác nhận xóa
   };
   return (

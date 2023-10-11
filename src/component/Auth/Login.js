@@ -4,13 +4,20 @@ import "./Login.scss";
 import { useState } from "react";
 import { postLogin } from "../service/apiService";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { doLogin } from "../../redux/action/userAction";
+import { ImSpinner3 } from "react-icons/im";
+import { useSelector } from "react-redux";
 const Login = (props) => {
   const [TenDangNhap, setTenDangNhap] = useState("");
   const [MatKhau, setMatKhau] = useState("");
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [errMessage, setErrMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
+  const dispath = useDispatch();
 
   const handleLogin = async (e) => {
     if (TenDangNhap.trim() === "" || MatKhau.trim() === "") {
@@ -20,25 +27,20 @@ const Login = (props) => {
       e.preventDefault();
       //validate
       //submit apis
-      let res = await postLogin(TenDangNhap, MatKhau);
-      console.log(res);
-      let token = res?.access_token;
-      if (res?.errCode == 0) {
-        alert("Chào mừng admin");
-        localStorage.setItem("accessToken", token);
-        console.log("Login successful! Token:", token);
-        let token1 = localStorage.getItem("accessToken");
-        if (token1.length > 0) {
-          // Nếu không có token, chuyển hướng đến trang đăng nhập
+      setIsLoading(true);
+      setTimeout(async () => {
+        let res = await postLogin(TenDangNhap, MatKhau);
+        if (res?.errCode === 0) {
+          dispath(doLogin(res));
+          setIsLoggedIn(true);
           navigate("/admins");
         } else {
-          navigate("/login");
-          return null;
+          // console.log("check Dang Nhap", res);
+          await setErrMessage(res?.errMessage);
         }
-      } else {
-        console.log("check Dang Nhap", res);
-        await setErrMessage(res?.errMessage);
-      }
+
+        setIsLoading(false);
+      }, 1000);
     }
   };
   const handleOnChange = (e) => {
@@ -117,7 +119,11 @@ const Login = (props) => {
                   type="submit"
                   className="btn btn-primary btn-lg btn-block"
                   onClick={(e) => handleLogin(e)}
+                  disabled={isLoading}
                 >
+                  {isLoading === true && (
+                    <ImSpinner3 className="icon-loading" />
+                  )}
                   Sign in
                 </button>
 

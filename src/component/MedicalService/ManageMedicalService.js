@@ -1,27 +1,35 @@
 import { FcPlus } from "react-icons/fc";
 import { useState, useEffect } from "react";
-import { getAllMedicalService } from "../service/apiService";
+import {
+  getAllMedicalService,
+  getMedicalServiceSearch,
+} from "../service/apiService";
 import ModalCreateMedicalService from "./ModalCreateMedicalService";
 import TableListMedicalService from "./TableListMedicalService";
 import ModalEditMedicalService from "./ModalEditMedicalService";
 import ModalDeleteMedicalService from "./ModalDeleteMedicalService";
-
+import SearchName from "./service/searchName.js";
+import withAuth from "../Admin/withAuth";
 const ManageMedicalService = (props) => {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
   const [show2, setShow2] = useState(false);
   const [dataUpdate, setDataUpdate] = useState({});
   const [listMedicalService, setListMedicalService] = useState([]);
+  const [totalPage, setTotalPage] = useState(0);
+  const [totalUser, setTotalUser] = useState(0);
 
   //call api render list bệnh nhân
   useEffect(() => {
     fetchListMedicalService();
   }, []);
-  const fetchListMedicalService = async () => {
-    let res = await getAllMedicalService("ALL");
-    console.log("check res", res);
+  const fetchListMedicalService = async (page) => {
+    let res = await getAllMedicalService("ALL", page);
+    // console.log("check res", res);
     if (res && res.errCode == 0) {
       setListMedicalService(res.data);
+      setTotalUser(res?.pagination?.total);
+      setTotalPage(res?.pagination?.totalpage);
     }
   };
 
@@ -33,8 +41,15 @@ const ManageMedicalService = (props) => {
   const handleBtnDelete = (medicalService) => {
     setShow2(true);
     setDataUpdate(medicalService);
-    console.log("show2", show2);
-    console.log("dataUpdate", dataUpdate);
+    // console.log("show2", show2);
+    // console.log("dataUpdate", dataUpdate);
+  };
+  const handleSearchName = async (search) => {
+    console.log("a", search);
+    let tenDV = search;
+    let res = await getMedicalServiceSearch(tenDV);
+    console.log("check res", res);
+    return res;
   };
 
   return (
@@ -49,7 +64,10 @@ const ManageMedicalService = (props) => {
         </div>
       </div>
       <div className="table-user-container">
+        <SearchName onSearch={handleSearchName} />
         <TableListMedicalService
+          fetchListMedicalService={fetchListMedicalService}
+          totalPage={totalPage}
           listMedicalService={listMedicalService}
           handleBtnUpdate={handleBtnUpdate}
           handleBtnDelete={handleBtnDelete}
@@ -75,4 +93,4 @@ const ManageMedicalService = (props) => {
     </div>
   );
 };
-export default ManageMedicalService;
+export default withAuth(ManageMedicalService);

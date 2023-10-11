@@ -44,7 +44,7 @@ const ModalCreateNurse = (props) => {
       maNguoiDung,
       ghiChu
     );
-    console.log("chek", res);
+    // console.log("chek", res);
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới y tá thành công!");

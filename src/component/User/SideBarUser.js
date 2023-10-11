@@ -85,7 +85,7 @@ const SideBarUser = (props) => {
             }}
           >
             <a
-              href="https://github.com/huyne22/app-react"
+              href="/"
               target="_blank"
               className="sidebar-btn"
               rel="noopener noreferrer"
@@ -97,7 +97,7 @@ const SideBarUser = (props) => {
                   overflow: "hidden",
                 }}
               >
-                &#169; HoiDanIT
+                &#169; Hỗ trợ: 0367304511
               </span>
             </a>
           </div>

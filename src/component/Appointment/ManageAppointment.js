@@ -1,10 +1,12 @@
 import { FcPlus } from "react-icons/fc";
 import { useState, useEffect } from "react";
-import { getAllAppointment } from "../service/apiService";
+import { getAllAppointment, getAppointmentSearch } from "../service/apiService";
 import ModalCreateAppointment from "./ModalCreateAppointment";
 import TableListAppointment from "./TableListAppointment";
 import ModalEditAppointment from "./ModalEditAppointment";
 import ModalDeleteAppointment from "./ModalDeleteAppointment";
+import SearchDate from "./service/searchDate";
+import withAuth from "../Admin/withAuth";
 
 const ManageAppointment = (props) => {
   const [show, setShow] = useState(false);
@@ -12,16 +14,19 @@ const ManageAppointment = (props) => {
   const [show2, setShow2] = useState(false);
   const [dataUpdate, setDataUpdate] = useState({});
   const [listAppointment, setListAppointment] = useState([]);
-
+  const [totalPage, setTotalPage] = useState(0);
+  const [totalUser, setTotalUser] = useState(0);
   //call api render list lịch trực
   useEffect(() => {
     fetchListAppointment();
   }, []);
-  const fetchListAppointment = async () => {
-    let res = await getAllAppointment("ALL");
-    console.log("check res", res);
-    if (res && res.errCode == 0) {
+  const fetchListAppointment = async (page) => {
+    let res = await getAllAppointment("ALL", page);
+    // console.log("check res", res);
+    if (res && res.errCode === 0) {
       setListAppointment(res.data);
+      setTotalUser(res?.pagination?.total);
+      setTotalPage(res?.pagination?.totalpage);
     }
   };
 
@@ -33,8 +38,14 @@ const ManageAppointment = (props) => {
   const handleBtnDelete = (appointment) => {
     setShow2(true);
     setDataUpdate(appointment);
-    console.log("show2", show2);
-    console.log("dataUpdate", dataUpdate);
+    // console.log("show2", show2);
+    // console.log("dataUpdate", dataUpdate);
+  };
+  const handleSearchDate = async (search) => {
+    let date = { Ngay: search.toString() };
+    let res = await getAppointmentSearch(date);
+    // console.log("check res", res);
+    return res;
   };
 
   return (
@@ -48,8 +59,11 @@ const ManageAppointment = (props) => {
           </button>
         </div>
       </div>
+      <SearchDate onSearch={handleSearchDate} />
       <div className="table-user-container">
         <TableListAppointment
+          fetchListAppointment={fetchListAppointment}
+          totalPage={totalPage}
           listAppointment={listAppointment}
           handleBtnUpdate={handleBtnUpdate}
           handleBtnDelete={handleBtnDelete}
@@ -75,4 +89,4 @@ const ManageAppointment = (props) => {
     </div>
   );
 };
-export default ManageAppointment;
+export default withAuth(ManageAppointment);

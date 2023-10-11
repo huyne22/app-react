@@ -21,7 +21,7 @@ const ModalCreateAppointment = (props) => {
   const handleSubmit = async (e) => {
     // Thực hiện xử lý gửi dữ liệu đi ở đây, ví dụ: gọi hàm để lưu thông tin lịch trực
     let res = await postCreateAppointment(ngay, buoi, maBS, maBN);
-    console.log("chek", res);
+    // console.log("chek", res);
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới lịch hẹn thành công!");

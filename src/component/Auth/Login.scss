@@ -10,3 +10,24 @@
         right: 90px;
     }
 }
+.icon-loading{
+    font-size: 14px;
+    margin-bottom: 3px;
+    color: blue;
+    animation: spin 1s infinite linear;
+}
+@keyframes spin {
+    from{
+transform: scale(1) rotate(0deg);
+    }to{
+        transform: scale(1) rotate(360deg);
+
+    }
+}
+button{
+    &:disabled{
+        background: #dddddd;
+        color: #afafaf;
+        cursor: no-drop;
+    }
+}

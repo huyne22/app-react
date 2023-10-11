@@ -12,9 +12,15 @@ const ModalDeletePatient = (props) => {
   const handleSubmit2 = async (e) => {
     let a = { MaBN: dataUpdate.MaBN.toString() };
     let res = await postDeletePatient(a);
-    console.log("res", res);
-
-    await fetchListPatient();
+    // console.log("res", res);
+    if (res?.errCode == 0) {
+      toast.success("Xóa bệnh nhân thành công!");
+      await fetchListPatient();
+    } else if (res?.errCode == 3) {
+      toast.info("Không có trường dữ liệu nào được Xóa!");
+    } else {
+      toast.error("Xóa bệnh nhân thất bại!");
+    }
     handleClose2(); // Đóng modal sau khi xác nhận xóa
   };
   return (

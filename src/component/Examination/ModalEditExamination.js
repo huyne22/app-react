@@ -14,6 +14,8 @@ const ModalEditExamination = (props) => {
   const [maYTa, setMaYTa] = useState("");
   const [ketQuaChuanDoanBenh, setKetQuaChuanDoanBenh] = useState("");
   const [ghiChu, setGhiChu] = useState("");
+  const [maThuoc, setMaThuoc] = useState("");
+  const [thanhToan, setThanhToan] = useState("");
   const [yourObject, setYourObject] = useState({});
 
   const updateObjectWithNewProperty = () => {
@@ -22,7 +24,7 @@ const ModalEditExamination = (props) => {
     setYourObject(updatedObject); // Cập nhật đối tượng với thuộc tính mới
   };
   useEffect(() => {
-    console.log("dataUpdate");
+    // console.log("dataUpdate");
     if (!_.isEmpty(dataUpdate)) {
       setMaBS(dataUpdate.MaBS);
       setMaBN(dataUpdate.MaBN);
@@ -31,6 +33,8 @@ const ModalEditExamination = (props) => {
       setMaYTa(dataUpdate.MaYTa);
       setKetQuaChuanDoanBenh(dataUpdate.KetQuaChuanDoanBenh);
       setGhiChu(dataUpdate.GhiChu);
+      setMaThuoc(dataUpdate.MaThuoc);
+      setThanhToan(dataUpdate.ThanhToan);
       updateObjectWithNewProperty();
     } else {
     }
@@ -84,10 +88,24 @@ const ModalEditExamination = (props) => {
       GhiChu: ghiChu,
     }));
   }, [ghiChu]);
+  // ghichu
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      MaThuoc: maThuoc,
+    }));
+  }, [maThuoc]);
+  // ghichu
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      ThanhToan: thanhToan,
+    }));
+  }, [thanhToan]);
 
   const handleSubmit = async (e) => {
     let res = await postEditExamination(yourObject);
-    console.log(res);
+    // console.log(res);
     if (res?.errCode == 0) {
       setShow1(false);
       toast.success("Cập nhật phiếu khám bệnh thành công!");
@@ -102,7 +120,7 @@ const ModalEditExamination = (props) => {
 
   const handleClose = () => {
     setShow1(false);
-    console.log("close");
+    // console.log("close");
   };
   return (
     <>
@@ -211,6 +229,36 @@ const ModalEditExamination = (props) => {
                 value={ghiChu}
                 onChange={(e) => setGhiChu(e.target.value)}
               ></textarea>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="MaThuoc" className="form-label">
+                Mã thuốc
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="MaThuoc"
+                name="MaThuoc"
+                value={maThuoc}
+                onChange={(e) => setMaThuoc(e.target.value)}
+                required
+              ></input>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="ThanhToan" className="form-label">
+                Thanh toán
+              </label>
+              <select
+                className="form-select"
+                id="ThanhToan"
+                name="ThanhToan"
+                value={thanhToan}
+                onChange={(e) => setThanhToan(e.target.value)}
+                required
+              >
+                <option value="0">Chưa thanh toán</option>
+                <option value="1">Đã thanh toán</option>
+              </select>
             </div>
           </div>
         </Modal.Body>

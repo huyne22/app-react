@@ -41,7 +41,7 @@ const ModalCreatePatient = (props) => {
       diaChi,
       ghiChu
     );
-    console.log(res);
+    // console.log(res);
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới bệnh nhân thành công!");

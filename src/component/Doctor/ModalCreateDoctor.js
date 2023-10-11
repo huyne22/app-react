@@ -44,7 +44,7 @@ const ModalCreateDoctor = (props) => {
       maNguoiDung,
       ghiChu
     );
-    console.log(res);
+    // console.log(res);
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới bác sĩ thành công!");

@@ -21,7 +21,7 @@ const ModalEditPatientMedicalService = (props) => {
     setYourObject(updatedObject); // Cập nhật đối tượng với thuộc tính mới
   };
   useEffect(() => {
-    console.log("dataUpdate");
+    // console.log("dataUpdate");
     if (!_.isEmpty(dataUpdate)) {
       setMaBN(dataUpdate.MaBN);
       setMaDV(dataUpdate.MaDV);
@@ -79,7 +79,7 @@ const ModalEditPatientMedicalService = (props) => {
 
   const handleSubmit = async (e) => {
     let res = await postEditPatientMedicalService(yourObject);
-    console.log(res);
+    // console.log(res);
     if (res?.errCode == 0) {
       setShow1(false);
       toast.success("Cập nhật bệnh nhân - dịch vụ thành công!");
@@ -94,7 +94,7 @@ const ModalEditPatientMedicalService = (props) => {
 
   const handleClose = () => {
     setShow1(false);
-    console.log("close");
+    // console.log("close");
   };
   return (
     <>

@@ -1,4 +1,4 @@
 const DashBoard = (props) => {
-  return <div>Quản lý bác sĩ</div>;
+  return <div>Chào mừng admin.Chúc bạn một ngày tốt lành.</div>;
 };
 export default DashBoard;

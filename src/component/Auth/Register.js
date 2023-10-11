@@ -12,6 +12,7 @@ const Register = (props) => {
   const [MatKhau, setMatKhau] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errMessage, setErrMessage] = useState("");
+  const [isValid, setIsValid] = useState(false);
 
   const handleSubmit = async (e) => {
     if (
@@ -43,6 +44,14 @@ const Register = (props) => {
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
   };
+  const handleOnChangeEmail = (e) => {
+    setTenDangNhap(e.target.value);
+
+    // Biểu thức chính quy để kiểm tra định dạng email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsValid(emailRegex.test(e.target.value));
+    // console.log("check valid", isValid);
+  };
   return (
     <>
       <section
@@ -68,13 +77,18 @@ const Register = (props) => {
                           id="form3Example3cg"
                           className="form-control form-control-lg"
                           value={TenDangNhap}
-                          onChange={(e) => setTenDangNhap(e.target.value)}
+                          onChange={(e) => handleOnChangeEmail(e)}
                           required
                         />
                         <label className="form-label" htmlFor="form3Example3cg">
                           Nhập email
                         </label>
                       </div>
+                      {!isValid && (
+                        <p style={{ color: "red" }}>
+                          Vui lòng nhập một địa chỉ email hợp lệ
+                        </p>
+                      )}
 
                       <div className="form-outline mb-4">
                         <input

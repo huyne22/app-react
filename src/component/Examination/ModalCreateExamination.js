@@ -14,6 +14,8 @@ const ModalCreateExamination = (props) => {
   const [maYTa, setMaYTa] = useState("");
   const [ketQuaChuanDoanBenh, setKetQuaChuanDoanBenh] = useState("");
   const [ghiChu, setGhiChu] = useState("");
+  const [maThuoc, setMaThuoc] = useState("");
+  const [thanhToan, setThanhToan] = useState("0");
 
   useEffect(() => {
     setMaBS("");
@@ -23,8 +25,11 @@ const ModalCreateExamination = (props) => {
     setMaYTa("");
     setKetQuaChuanDoanBenh("");
     setGhiChu("");
+    setMaThuoc("");
+    setThanhToan("0");
   }, [show]);
   const handleSubmit = async (e) => {
+    // console.log("thanh", thanhToan);
     // Thực hiện xử lý gửi dữ liệu đi ở đây, ví dụ: gọi hàm để lưu thông tin phiếu khám bệnh
     let res = await postCreateExamination(
       maBS,
@@ -33,16 +38,24 @@ const ModalCreateExamination = (props) => {
       buoi,
       maYTa,
       ketQuaChuanDoanBenh,
-      ghiChu
+      ghiChu,
+      maThuoc,
+      thanhToan
     );
-    console.log(res);
+    // console.log(res);
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới phiếu khám bệnh thành công!");
       await props.fetchListExamination();
-    } else if (res?.errCode == 2) {
+    } else if (res?.errCode == 3) {
       toast.error(
         "🦄Tạo mới phiếu khám bệnh thất bại! Mã phiếu khám bệnh đã tồn tại!"
+      );
+    } else if (res?.errCode == 2) {
+      toast.error("🦄Tạo mới phiếu khám bệnh thất bại! Thuốc này hiện đã hết!");
+    } else if (res?.errCode == 4) {
+      toast.error(
+        "🦄Tạo mới phiếu khám bệnh thất bại! Lịch trực bác sĩ đã đầy!"
       );
     } else {
       toast.error("🦄Tạo mới phiếu khám bệnh thất bại!");
@@ -158,6 +171,36 @@ const ModalCreateExamination = (props) => {
                 onChange={(e) => setGhiChu(e.target.value)}
                 required
               ></textarea>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="MaThuoc" className="form-label">
+                Mã thuốc
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="MaThuoc"
+                name="MaThuoc"
+                value={maThuoc}
+                onChange={(e) => setMaThuoc(e.target.value)}
+                required
+              ></input>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="ThanhToan" className="form-label">
+                Thanh toán
+              </label>
+              <select
+                className="form-select"
+                id="ThanhToan"
+                name="ThanhToan"
+                value={thanhToan}
+                onChange={(e) => setThanhToan(e.target.value)}
+                required
+              >
+                <option value="0">Chưa thanh toán</option>
+                <option value="1">Đã thanh toán</option>
+              </select>
             </div>
           </div>
         </Modal.Body>

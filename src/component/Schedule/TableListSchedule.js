@@ -1,7 +1,12 @@
 import React from "react";
+import Paginate from "../../Layout/Paginate";
 
 const TableListSchedule = (props) => {
-  const { listSchedule } = props;
+  const { listSchedule, totalPage, fetchListSchedule } = props;
+  const handlePageClick = (e) => {
+    let selectedPage = e.selected + 1;
+    fetchListSchedule(selectedPage);
+  };
   return (
     <>
       <div
@@ -22,8 +27,8 @@ const TableListSchedule = (props) => {
           </thead>
           <tbody>
             {listSchedule &&
-              listSchedule?.map((item) => (
-                <tr key={item.Ngay}>
+              listSchedule?.map((item, index) => (
+                <tr key={index}>
                   <td>{item.Ngay.split("T")[0]}</td>
                   <td>{item.Buoi}</td>
                   <td>{item.MaBS}</td>
@@ -49,6 +54,7 @@ const TableListSchedule = (props) => {
           </tbody>
         </table>
       </div>
+      <Paginate handlePageClick={handlePageClick} totalPage={totalPage} />
     </>
   );
 };
