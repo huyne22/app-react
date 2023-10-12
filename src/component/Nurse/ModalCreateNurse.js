@@ -5,7 +5,6 @@ import { postCreateNurse } from "../service/apiService";
 import { toast } from "react-toastify";
 
 const ModalCreateNurse = (props) => {
-  //modal
   const { show, setShow } = props;
   const [maYT, setMaYT] = useState("");
   const [hoYT, setHoYT] = useState("");
@@ -31,7 +30,6 @@ const ModalCreateNurse = (props) => {
     setGhiChu("");
   }, [show]);
   const handleSubmit = async (e) => {
-    // Thực hiện xử lý gửi dữ liệu đi ở đây, ví dụ: gọi hàm để lưu thông tin y tá
     let res = await postCreateNurse(
       maYT,
       hoYT,
@@ -44,7 +42,6 @@ const ModalCreateNurse = (props) => {
       maNguoiDung,
       ghiChu
     );
-    // console.log("chek", res);
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới y tá thành công!");

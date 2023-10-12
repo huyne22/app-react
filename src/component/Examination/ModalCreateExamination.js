@@ -29,8 +29,6 @@ const ModalCreateExamination = (props) => {
     setThanhToan("0");
   }, [show]);
   const handleSubmit = async (e) => {
-    // console.log("thanh", thanhToan);
-    // Thực hiện xử lý gửi dữ liệu đi ở đây, ví dụ: gọi hàm để lưu thông tin phiếu khám bệnh
     let res = await postCreateExamination(
       maBS,
       maBN,
@@ -42,7 +40,6 @@ const ModalCreateExamination = (props) => {
       maThuoc,
       thanhToan
     );
-    // console.log(res);
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới phiếu khám bệnh thành công!");

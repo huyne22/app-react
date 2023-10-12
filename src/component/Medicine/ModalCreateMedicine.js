@@ -5,7 +5,6 @@ import { postCreateMedicine } from "../service/apiService";
 import { toast } from "react-toastify";
 
 const ModalCreateMedicine = (props) => {
-  //modal
   const { show, setShow } = props;
   const [maThuoc, setMaThuoc] = useState("");
   const [tenThuoc, setTenThuoc] = useState("");
@@ -23,7 +22,6 @@ const ModalCreateMedicine = (props) => {
     setGhiChu("");
   }, [show]);
   const handleSubmit = async (e) => {
-    // Thực hiện xử lý gửi dữ liệu đi ở đây, ví dụ: gọi hàm để lưu thông tin thuốc
     let res = await postCreateMedicine(
       maThuoc,
       tenThuoc,
@@ -32,7 +30,6 @@ const ModalCreateMedicine = (props) => {
       soLuong,
       ghiChu
     );
-    // console.log(res);
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới thuốc thành công!");

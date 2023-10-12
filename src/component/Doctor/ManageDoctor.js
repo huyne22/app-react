@@ -6,6 +6,7 @@ import TableListDoctor from "./TableListDoctor";
 import ModalEditDoctor from "./ModalEditDoctor";
 import ModalDeleteDoctor from "./ModalDeleteDoctor";
 import SearchName from "./service/searchName.js";
+import { FormattedMessage } from "react-intl";
 
 import withAuth from "../Admin/withAuth";
 const ManageDoctor = (props) => {
@@ -17,13 +18,11 @@ const ManageDoctor = (props) => {
   const [totalPage, setTotalPage] = useState(0);
   const [totalUser, setTotalUser] = useState(0);
 
-  //call api render list bác sĩ
   useEffect(() => {
     fetchListDoctor();
   }, []);
   const fetchListDoctor = async (page) => {
     let res = await getAllDoctor("ALL", page);
-    // console.log("check res", res);
     if (res && res.errCode == 0) {
       setListDoctor(res.data);
       setTotalUser(res?.pagination?.total);
@@ -50,12 +49,14 @@ const ManageDoctor = (props) => {
 
   return (
     <div className="manage-user-container">
-      <div className="title">Quản lý bác sĩ</div>
+      <div className="title">
+        <FormattedMessage id="system.doctor_management" />
+      </div>
       <div className="user-content">
         <div className="btn-add-new">
           <button className="btn btn-primary" onClick={() => setShow(true)}>
             <FcPlus />
-            Thêm mới bác sĩ
+            <FormattedMessage id="system.add_new_doctor" />
           </button>
         </div>
       </div>

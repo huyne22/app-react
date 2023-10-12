@@ -31,7 +31,6 @@ const ModalCreateDoctor = (props) => {
     setGhiChu("");
   }, [show]);
   const handleSubmit = async (e) => {
-    // Thực hiện xử lý gửi dữ liệu đi ở đây, ví dụ: gọi hàm để lưu thông tin bác sĩ
     let res = await postCreateDoctor(
       maBS,
       hoBS,
@@ -44,7 +43,6 @@ const ModalCreateDoctor = (props) => {
       maNguoiDung,
       ghiChu
     );
-    // console.log(res);
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới bác sĩ thành công!");

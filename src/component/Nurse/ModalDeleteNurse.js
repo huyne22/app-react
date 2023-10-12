@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useEffect } from "react";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { postDeleteNurse } from "../service/apiService";
@@ -12,7 +11,6 @@ const ModalDeleteNurse = (props) => {
   const handleSubmit2 = async (e) => {
     let a = { MaYT: dataUpdate.MaYT.toString() };
     let res = await postDeleteNurse(a);
-    // console.log("res", res);
     if (res?.errCode == 0) {
       toast.success("Xóa y tá thành công!");
       await fetchListNurse();
@@ -21,7 +19,7 @@ const ModalDeleteNurse = (props) => {
     } else {
       toast.error("Xóa y tá thất bại!");
     }
-    handleClose2(); // Đóng modal sau khi xác nhận xóa
+    handleClose2();
   };
   return (
     <>

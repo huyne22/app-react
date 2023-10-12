@@ -1,6 +1,7 @@
 import {
   FETCH_LOGIN_SUCCESS,
   FETCH_LOGOUT_SUCCESS,
+  CHANGE_LANGUAGE_SUCCESS,
 } from "../action/userAction";
 const initialState = {
   account: {
@@ -14,8 +15,6 @@ const initialState = {
 const userReducer = (state = initialState, acction) => {
   switch (acction.type) {
     case FETCH_LOGIN_SUCCESS:
-      // console.log("check acction", acction);
-      // console.log("check acction", acction?.payload?.data[0].TenDangNhap);
       return {
         ...state,
         account: {
@@ -24,7 +23,6 @@ const userReducer = (state = initialState, acction) => {
           email: acction?.payload?.data[0]?.TenDangNhap,
         },
         isAuth: true,
-        language: "vi",
       };
     case FETCH_LOGOUT_SUCCESS:
       return {
@@ -35,6 +33,12 @@ const userReducer = (state = initialState, acction) => {
           email: null,
         },
         isAuth: false,
+      };
+    case CHANGE_LANGUAGE_SUCCESS:
+      console.log("check", acction.payload);
+      return {
+        ...state,
+        language: acction?.payload,
       };
     default:
       return state;

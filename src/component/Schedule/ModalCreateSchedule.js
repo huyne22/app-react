@@ -5,7 +5,6 @@ import { postCreateSchedule } from "../service/apiService";
 import { toast } from "react-toastify";
 
 const ModalCreateSchedule = (props) => {
-  //modal
   const { show, setShow } = props;
   const [ngay, setNgay] = useState("");
   const [buoi, setBuoi] = useState("");
@@ -21,7 +20,6 @@ const ModalCreateSchedule = (props) => {
     setGhiChu("");
   }, [show]);
   const handleSubmit = async (e) => {
-    // Thực hiện xử lý gửi dữ liệu đi ở đây, ví dụ: gọi hàm để lưu thông tin lịch trực
     let res = await postCreateSchedule(
       ngay,
       buoi,
@@ -29,7 +27,6 @@ const ModalCreateSchedule = (props) => {
       soLuongBNToiDa,
       ghiChu
     );
-    // console.log("chek", res);
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới lịch trực thành công!");

@@ -49,3 +49,40 @@
         font-size: 14px;
     }
 }
+/* CSS for the Header */
+/* CSS for the Header */
+.container-top {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    height: 40px; /* Adjust the logo height as needed */
+  }
+  
+  .text-logo {
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+  
+  .common-support {
+    font-size: 12px;
+  }
+  
+  .header-buttons .btn {
+    margin-left: 10px;
+  }
+  
+  .header-welcome {
+    margin-right: 10px;
+  }
+  
+  /* Customize other styles as needed */
+  
+  
+  /* Customize other styles as needed */
+  

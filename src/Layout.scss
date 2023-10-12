@@ -33,7 +33,7 @@ body{
         .navbar{
             padding-top: 20px;
             z-index: 10;
-            background-color: rgba(0,0,0,0) !important;
+            background-color: rgb(27 52 226 / 50%) !important;
             .nav-link{
                 &.active{
                     color: rgb(36, 12, 220);
@@ -44,6 +44,7 @@ body{
     .homepage-container{
         display: flex;
         width: 100%;
+        height: 100vh;
         .homepage-content{
             padding: 100px;
             width: 50%;

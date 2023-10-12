@@ -6,6 +6,7 @@ import TableListMedicine from "./TableListMedicine";
 import ModalEditMedicine from "./ModalEditMedicine";
 import ModalDeleteMedicine from "./ModalDeleteMedicine";
 import SearchName from "./service/searchName.js";
+import { FormattedMessage } from "react-intl";
 
 import withAuth from "../Admin/withAuth";
 const ManageMedicine = (props) => {
@@ -17,13 +18,11 @@ const ManageMedicine = (props) => {
   const [totalPage, setTotalPage] = useState(0);
   const [totalUser, setTotalUser] = useState(0);
 
-  //call api render list bệnh nhân
   useEffect(() => {
     fetchListMedicine();
   }, []);
   const fetchListMedicine = async (page) => {
     let res = await getAllMedicine("ALL", page);
-    // console.log("check res", res);
     if (res && res.errCode == 0) {
       setListMedicine(res.data);
       setTotalUser(res?.pagination?.total);
@@ -31,7 +30,6 @@ const ManageMedicine = (props) => {
     }
   };
 
-  //click nút edit
   const handleBtnUpdate = (medicine) => {
     setShow1(true);
     setDataUpdate(medicine);
@@ -39,8 +37,6 @@ const ManageMedicine = (props) => {
   const handleBtnDelete = (medicine) => {
     setShow2(true);
     setDataUpdate(medicine);
-    // console.log("show2", show2);
-    // console.log("dataUpdate", dataUpdate);
   };
   const handleSearchName = async (search) => {
     console.log("a", search);
@@ -52,12 +48,15 @@ const ManageMedicine = (props) => {
 
   return (
     <div className="manage-user-container">
-      <div className="title">Quản lý thuốc</div>
+      <div className="title">
+        {" "}
+        <FormattedMessage id="system.medication_management" />
+      </div>
       <div className="user-content">
         <div className="btn-add-new">
           <button className="btn btn-primary" onClick={() => setShow(true)}>
             <FcPlus />
-            Thêm mới thuốc
+            <FormattedMessage id="system.add_new_medicine" />
           </button>
         </div>
       </div>

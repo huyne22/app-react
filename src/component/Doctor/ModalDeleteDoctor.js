@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useEffect } from "react";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { postDeleteDoctor } from "../service/apiService";
@@ -12,7 +11,6 @@ const ModalDeleteDoctor = (props) => {
   const handleSubmit2 = async (e) => {
     let a = { MaBS: dataUpdate.MaBS.toString() };
     let res = await postDeleteDoctor(a);
-    // console.log("res", res);
     if (res?.errCode == 0) {
       toast.success("Xóa bác sĩ thành công!");
       await fetchListDoctor();

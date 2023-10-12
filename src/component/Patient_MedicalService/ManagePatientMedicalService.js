@@ -9,6 +9,7 @@ import TableListPatientMedicalService from "./TableListPatientMedicalService";
 import ModalEditPatientMedicalService from "./ModalEditPatientMedicalService";
 import ModalDeletePatientMedicalService from "./ModalDeletePatientMedicalService";
 import SearchDate from "./service/searchDate";
+import { FormattedMessage } from "react-intl";
 import withAuth from "../Admin/withAuth";
 const ManagePatientMedicalService = (props) => {
   const [show, setShow] = useState(false);
@@ -21,13 +22,11 @@ const ManagePatientMedicalService = (props) => {
   const [totalPage, setTotalPage] = useState(0);
   const [totalUser, setTotalUser] = useState(0);
 
-  //call api render list bệnh nhân
   useEffect(() => {
     fetchListPatientMedicalService();
   }, []);
   const fetchListPatientMedicalService = async (page) => {
     let res = await getAllPatientMedicalService("ALL", page);
-    // console.log("check res", res);
     if (res && res.errCode == 0) {
       setListPatientMedicalService(res.data);
       setTotalUser(res?.pagination?.total);
@@ -35,7 +34,6 @@ const ManagePatientMedicalService = (props) => {
     }
   };
 
-  //click nút edit
   const handleBtnUpdate = (examination) => {
     setShow1(true);
     setDataUpdate(examination);
@@ -43,24 +41,23 @@ const ManagePatientMedicalService = (props) => {
   const handleBtnDelete = (examination) => {
     setShow2(true);
     setDataUpdate(examination);
-    // console.log("show2", show2);
-    // console.log("dataUpdate", dataUpdate);
   };
   const handleSearchDate = async (search) => {
     let date = { Ngay: search.toString() };
     let res = await getPatientMedicalServiceSearch(date);
-    // console.log("check res", res);
     return res;
   };
 
   return (
     <div className="manage-user-container">
-      <div className="title">Quản lý bệnh nhân - dịch vụ</div>
+      <div className="title">
+        <FormattedMessage id="system.patient_management_and_medical_services" />
+      </div>
       <div className="user-content">
         <div className="btn-add-new">
           <button className="btn btn-primary" onClick={() => setShow(true)}>
             <FcPlus />
-            Thêm mới bệnh nhân - dịch vụ
+            <FormattedMessage id="system.add_new_patient-service" />
           </button>
         </div>
       </div>

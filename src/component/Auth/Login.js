@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { doLogin } from "../../redux/action/userAction";
 import { ImSpinner3 } from "react-icons/im";
-import { useSelector } from "react-redux";
+import { FormattedMessage } from "react-intl";
 const Login = (props) => {
   const [TenDangNhap, setTenDangNhap] = useState("");
   const [MatKhau, setMatKhau] = useState("");
@@ -25,17 +25,14 @@ const Login = (props) => {
       return;
     } else {
       e.preventDefault();
-      //validate
-      //submit apis
       setIsLoading(true);
       setTimeout(async () => {
         let res = await postLogin(TenDangNhap, MatKhau);
+        console.log("red", res);
         if (res?.errCode === 0) {
           dispath(doLogin(res));
-          setIsLoggedIn(true);
           navigate("/admins");
         } else {
-          // console.log("check Dang Nhap", res);
           await setErrMessage(res?.errMessage);
         }
 
@@ -64,10 +61,9 @@ const Login = (props) => {
             </div>
             <div className="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
               <form>
-                {/* <!-- Email input --> */}
                 <div className="form-outline mb-4">
                   <label className="form-label" htmlFor="form1Example13">
-                    Tên Đăng Nhập
+                    <FormattedMessage id="auth.username" />
                   </label>
                   <input
                     type="text"
@@ -84,7 +80,7 @@ const Login = (props) => {
                 {/* <!-- Password input --> */}
                 <div className="form-outline mb-4">
                   <label className="form-label" htmlFor="form1Example23">
-                    Mật khẩu
+                    <FormattedMessage id="auth.password" />
                   </label>
                   <div className="input-password">
                     <input
@@ -114,7 +110,6 @@ const Login = (props) => {
                   {errMessage && <p>{errMessage}</p>}
                 </div>
 
-                {/* <!-- Submit button --> */}
                 <button
                   type="submit"
                   className="btn btn-primary btn-lg btn-block"
@@ -124,21 +119,27 @@ const Login = (props) => {
                   {isLoading === true && (
                     <ImSpinner3 className="icon-loading" />
                   )}
-                  Sign in
+                  <FormattedMessage id="auth.login" />
                 </button>
 
                 <div className="text-center text-muted mt-3 mb-3">
-                  Bạn chưa có tài khoản?{" "}
+                  <FormattedMessage id="auth.no_account" />
                   <a href="#" className="fw-bold text-body">
                     <Link to="/register">
-                      <u>Đăng ký tại đây</u>
+                      <u>
+                        {" "}
+                        <FormattedMessage id="auth.register_here" />
+                      </u>
                     </Link>
                   </a>
                 </div>
                 <div className="text-center text-muted ms-2">
-                  Quay về trang chủ?{" "}
+                  <FormattedMessage id="auth.back_home" />
                   <a href="#" className="fw-bold text-body">
-                    <Link to="/">Quay về</Link>
+                    <Link to="/">
+                      {" "}
+                      <FormattedMessage id="auth.back" />
+                    </Link>
                   </a>
                 </div>
               </form>

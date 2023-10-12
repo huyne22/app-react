@@ -1,90 +1,81 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { postEditAppointment } from "../service/apiService";
+import { postEditScheduleNurse } from "../service/apiService";
 import { useEffect } from "react";
 import _ from "lodash";
 import { toast } from "react-toastify";
-const ModalEditAppointment = (props) => {
+const ModalEditScheduleNurse = (props) => {
   const { show1, setShow1, dataUpdate } = props;
   const [ngay, setNgay] = useState("");
   const [buoi, setBuoi] = useState("");
-  const [maBS, setMaBS] = useState("");
-  const [maBN, setMaBN] = useState("");
+  const [maYTa, setMaYTa] = useState("");
+  const [soLuongBNToiDa, setSoLuongBNToiDa] = useState("");
+  const [ghiChu, setGhiChu] = useState("");
   const [yourObject, setYourObject] = useState({});
 
   const updateObjectWithNewProperty = () => {
-    // Tạo bản sao của đối tượng hiện tại để không ghi đè lên trực tiếp
     const updatedObject = { ...yourObject };
-    setYourObject(updatedObject); // Cập nhật đối tượng với thuộc tính mới
+    setYourObject(updatedObject);
   };
   useEffect(() => {
-    // console.log("dataUpdate");
     if (!_.isEmpty(dataUpdate)) {
       setNgay(dataUpdate.Ngay.split("T")[0]);
       setBuoi(dataUpdate.Buoi);
-      setMaBS(dataUpdate.MaBS);
-      setMaBN(dataUpdate.MaBN);
+      setMaYTa(dataUpdate.MaYTa);
+      setSoLuongBNToiDa(dataUpdate.SoLuongBNToiDa);
+      setGhiChu(dataUpdate.GhiChu);
       updateObjectWithNewProperty();
     } else {
     }
   }, [dataUpdate]);
-  //ma
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
       Ngay: ngay.toString(),
     }));
   }, [ngay]);
-  //ho
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
       Buoi: buoi,
     }));
   }, [buoi]);
-  //ten
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
-      MaBS: maBS,
+      MaYTa: maYTa,
     }));
-  }, [maBS]);
-  //maBN
+  }, [maYTa]);
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
-      MaBN: maBN,
+      SoLuongBNToiDa: soLuongBNToiDa,
     }));
-  }, [maBN]);
+  }, [soLuongBNToiDa]);
+  useEffect(() => {
+    setYourObject((prevObject) => ({
+      ...prevObject,
+      GhiChu: ghiChu,
+    }));
+  }, [ghiChu]);
 
   const handleSubmit = async (e) => {
-    console.log("chek", yourObject);
-    // let res = await postEditAppointment(yourObject);
-    // console.log("chek update", res);
-    // if (res?.errCode === 0) {
-    //   setShow1(false);
-    //   toast.success("Cập nhật lịch trực thành công!");
-    //   await props.fetchListAppointment();
-    // } else if (res?.errCode === 3) {
-    //   setShow1(false);
-    //   toast.info("Không có trường dữ liệu nào được cập nhật!");
-    // } else {
-    //   toast.error("Cập nhật lịch trực thất bại!");
-    // }
+    let res = await postEditScheduleNurse(yourObject);
+    if (res?.errCode === 0) {
+      setShow1(false);
+      toast.success("Cập nhật lịch trực thành công!");
+      await props.fetchListSchedule();
+    } else if (res?.errCode === 3) {
+      setShow1(false);
+      toast.info("Không có trường dữ liệu nào được cập nhật!");
+    } else {
+      toast.error("Cập nhật lịch trực thất bại!");
+    }
   };
 
   const handleClose = () => {
     setShow1(false);
-    // setNgay("");
-    // setBuoi("");
-    // setMaBS("");
-    // setMaBN("");
-    // setGhiChu("");
-    // setBangCap("");
-    // setChuyenMon("Nam");
-    // setGioiTinh("");
-    console.log("close");
   };
   return (
     <>
@@ -129,30 +120,42 @@ const ModalEditAppointment = (props) => {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="MaBS" className="form-label">
-                Mã bác sĩ
+              <label htmlFor="MaYTa" className="form-label">
+                Mã y tá
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="MaBS"
-                name="MaBS"
-                value={maBS}
-                onChange={(e) => setMaBS(e.target.value)}
+                id="MaYTa"
+                name="MaYTa"
+                value={maYTa}
+                onChange={(e) => setMaYTa(e.target.value)}
                 disabled
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="MaBN" className="form-label">
-                Mã bệnh nhân
+              <label htmlFor="SoLuongBNToiDa" className="form-label">
+                Số lượng bệnh nhân tối đa
               </label>
               <input
                 type="text"
                 className="form-control"
-                id="MaBN"
-                name="MaBN"
-                value={maBN}
-                onChange={(e) => setMaBN(e.target.value)}
+                id="SoLuongBNToiDa"
+                name="SoLuongBNToiDa"
+                value={soLuongBNToiDa}
+                onChange={(e) => setSoLuongBNToiDa(e.target.value)}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="GhiChu" className="form-label">
+                Ghi chú
+              </label>
+              <textarea
+                className="form-control"
+                id="GhiChu"
+                name="GhiChu"
+                value={ghiChu}
+                onChange={(e) => setGhiChu(e.target.value)}
               />
             </div>
           </div>
@@ -169,4 +172,4 @@ const ModalEditAppointment = (props) => {
     </>
   );
 };
-export default ModalEditAppointment;
+export default ModalEditScheduleNurse;

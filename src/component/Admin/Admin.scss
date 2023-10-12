@@ -12,4 +12,20 @@
         }
        
     }
+    .admin-header{
+
+        .language{
+            display: flex;
+            float: right;
+            margin-right: 50px;
+            cursor: pointer;
+            .language-vi{
+                margin-right: 10px;
+                color: green;
+            }
+            .language-en{
+                color: blue;
+            }
+        }
+    }
 }

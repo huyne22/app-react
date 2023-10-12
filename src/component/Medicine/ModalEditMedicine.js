@@ -16,12 +16,10 @@ const ModalEditMedicine = (props) => {
   const [yourObject, setYourObject] = useState({});
 
   const updateObjectWithNewProperty = () => {
-    // Tạo bản sao của đối tượng hiện tại để không ghi đè lên trực tiếp
     const updatedObject = { ...yourObject };
-    setYourObject(updatedObject); // Cập nhật đối tượng với thuộc tính mới
+    setYourObject(updatedObject);
   };
   useEffect(() => {
-    // console.log("dataUpdate");
     if (!_.isEmpty(dataUpdate)) {
       setMaThuoc(dataUpdate.MaThuoc);
       setTenThuoc(dataUpdate.TenThuoc);
@@ -33,28 +31,24 @@ const ModalEditMedicine = (props) => {
     } else {
     }
   }, [dataUpdate]);
-  //ma
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
       MaThuoc: maThuoc.toString(),
     }));
   }, [maThuoc]);
-  //ten
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
       TenThuoc: tenThuoc,
     }));
   }, [tenThuoc]);
-  //motaDv
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
       CongDung: congDung,
     }));
   }, [congDung]);
-  //giatien
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
@@ -67,7 +61,6 @@ const ModalEditMedicine = (props) => {
       SoLuong: soLuong,
     }));
   }, [soLuong]);
-  // ghiChu
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
@@ -77,7 +70,6 @@ const ModalEditMedicine = (props) => {
 
   const handleSubmit = async (e) => {
     let res = await postEditMedicine(yourObject);
-    // console.log(res);
     if (res?.errCode == 0) {
       setShow1(false);
       toast.success("Cập nhật thuốc thành công!");
@@ -92,7 +84,6 @@ const ModalEditMedicine = (props) => {
 
   const handleClose = () => {
     setShow1(false);
-    // console.log("close");
   };
   return (
     <>

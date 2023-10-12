@@ -1,9 +1,7 @@
 import axios from "../../axios";
 import config from "../../config";
 const apiBaseUrl = config.api.API_BASE_URL;
-const config1 = {
-  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-};
+
 const postLogin = async (TenDangNhap, MatKhau) => {
   try {
     let user = await axios.post(`${apiBaseUrl}api/login`, {
@@ -28,6 +26,50 @@ const postRegister = async (TenDangNhap, MatKhau) => {
   }
 };
 
+//doctor
+const postCreateUser = async (MaNguoiDung, TenDangNhap, MatKhau, GhiChu) => {
+  try {
+    let data = await axios.post(`${apiBaseUrl}api/create-new-user`, {
+      MaNguoiDung,
+      TenDangNhap,
+      MatKhau,
+      GhiChu,
+    });
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const getAllUser = (MaNguoiDung, page) => {
+  return axios.get(`${apiBaseUrl}api/get-all-user`, {
+    params: {
+      id: MaNguoiDung,
+      page: page,
+    },
+  });
+};
+
+const postEditUser = async (data) => {
+  try {
+    let user = await axios.post(`${apiBaseUrl}api/update-user`, {
+      data,
+    });
+    return user;
+  } catch (e) {
+    console.log(e);
+  }
+};
+const postDeleteUser = async (data) => {
+  try {
+    let user = await axios.post(`${apiBaseUrl}api/delete-user`, {
+      data,
+    });
+    return user;
+  } catch (e) {
+    console.log(e);
+  }
+};
 const postCreatePatient = async (
   MaBN,
   HoBN,
@@ -58,16 +100,16 @@ const postCreatePatient = async (
 };
 
 const getAllPatient = (MaBN, page) => {
-  return axios.get(
-    `${apiBaseUrl}api/get-all-patient`,
-    {
+  try {
+    return axios.get(`${apiBaseUrl}api/get-all-patient`, {
       params: {
         id: MaBN,
         page: page,
       },
-    },
-    config1
-  );
+    });
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const postEditPatient = async (data) => {
@@ -306,6 +348,59 @@ const postDeleteSchedule = async (Ngay, Buoi, MaBS) => {
       Ngay,
       Buoi,
       MaBS,
+    });
+    return user;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+//schedule nurse
+const postCreateScheduleNurse = async (
+  Ngay,
+  Buoi,
+  MaYTa,
+  SoLuongBNToiDa,
+  GhiChu
+) => {
+  try {
+    let data = await axios.post(`${apiBaseUrl}api/create-nurse-schedule`, {
+      Ngay,
+      Buoi,
+      MaYTa,
+      SoLuongBNToiDa,
+      GhiChu,
+    });
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const getAllScheduleNurse = (All, page) => {
+  return axios.get(`${apiBaseUrl}api/get-all-nurse-schedule`, {
+    params: {
+      id: All,
+      page: page,
+    },
+  });
+};
+const postEditScheduleNurse = async (data) => {
+  try {
+    let user = await axios.post(`${apiBaseUrl}api/update-nurse-schedule`, {
+      data,
+    });
+    return user;
+  } catch (e) {
+    console.log(e);
+  }
+};
+const postDeleteScheduleNurse = async (Ngay, Buoi, MaYTa) => {
+  try {
+    let user = await axios.post(`${apiBaseUrl}api/delete-nurse-schedule`, {
+      Ngay,
+      Buoi,
+      MaYTa,
     });
     return user;
   } catch (e) {
@@ -585,6 +680,19 @@ const getDoctorSearch = async (tenBS) => {
   }
 };
 
+const getUserSearch = async (tenDangNhap) => {
+  try {
+    console.log("tenDangNhap", tenDangNhap);
+    const response = await axios.post(`${apiBaseUrl}api/get-user-search`, {
+      tenDangNhap,
+    });
+    return response;
+  } catch (error) {
+    console.error("Lỗi khi gọi API:", error);
+    throw error;
+  }
+};
+
 const getNurseSearch = async (tenYT) => {
   try {
     console.log("tenYT", tenYT);
@@ -594,7 +702,7 @@ const getNurseSearch = async (tenYT) => {
     return response;
   } catch (error) {
     console.error("Lỗi khi gọi API:", error);
-    throw error; // Re-throw lỗi để xử lý ở phần gọi hàm getPatientSearch
+    throw error;
   }
 };
 
@@ -607,7 +715,7 @@ const getMedicineSearch = async (TenThuoc) => {
     return response;
   } catch (error) {
     console.error("Lỗi khi gọi API:", error);
-    throw error; // Re-throw lỗi để xử lý ở phần gọi hàm getPatientSearch
+    throw error;
   }
 };
 const postCreateMedicine = async (
@@ -666,6 +774,10 @@ const postDeleteMedicine = async (data) => {
 export {
   postLogin,
   postRegister,
+  postCreateUser,
+  getAllUser,
+  postEditUser,
+  postDeleteUser,
   postCreatePatient,
   getAllPatient,
   postEditPatient,
@@ -686,6 +798,10 @@ export {
   getAllSchedule,
   postEditSchedule,
   postDeleteSchedule,
+  postCreateScheduleNurse,
+  getAllScheduleNurse,
+  postEditScheduleNurse,
+  postDeleteScheduleNurse,
   postCreateAppointment,
   getAllAppointment,
   postDeleteAppointment,
@@ -704,6 +820,7 @@ export {
   getPatientMedicalServiceSearch,
   getMedicalServiceSearch,
   getDoctorSearch,
+  getUserSearch,
   getNurseSearch,
   getMedicineSearch,
   postCreateMedicine,

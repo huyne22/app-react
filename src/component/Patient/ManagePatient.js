@@ -6,8 +6,8 @@ import TableListPatient from "./TableListPatient";
 import ModalEditPatient from "./ModalEditPatient";
 import ModalDeletePatient from "./ModalDeletePatient";
 import SearchPhone from "./service/SearchPhone";
+import { FormattedMessage } from "react-intl";
 import withAuth from "../Admin/withAuth";
-// import withAuth from "../Admin/withAuth";
 const ManagePatient = (props) => {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -17,7 +17,6 @@ const ManagePatient = (props) => {
   const [totalPage, setTotalPage] = useState(0);
   const [totalUser, setTotalUser] = useState(0);
 
-  //call api render list bệnh nhân
   useEffect(() => {
     const token = 2;
     if (token) {
@@ -35,7 +34,6 @@ const ManagePatient = (props) => {
     }
   };
 
-  //click nút edit
   const handleBtnUpdate = (patient) => {
     setShow1(true);
     setDataUpdate(patient);
@@ -43,24 +41,24 @@ const ManagePatient = (props) => {
   const handleBtnDelete = (patient) => {
     setShow2(true);
     setDataUpdate(patient);
-    // console.log("show2", show2);
-    // console.log("dataUpdate", dataUpdate);
   };
   const handleSearchPhone = async (search) => {
     let tel = { SoDT: search.toString() };
     let res = await getPatientSearch(tel);
-    // console.log("check res", res);
     return res;
   };
 
   return (
     <div className="manage-user-container">
-      <div className="title">Quản lý bệnh nhân</div>
+      <div className="title">
+        {" "}
+        <FormattedMessage id="system.patient_management" />
+      </div>
       <div className="user-content">
         <div className="btn-add-new">
           <button className="btn btn-primary" onClick={() => setShow(true)}>
             <FcPlus />
-            Thêm mới bệnh nhân
+            <FormattedMessage id="system.add_new_patient" />
           </button>
         </div>
       </div>

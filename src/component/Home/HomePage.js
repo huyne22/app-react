@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 const HomePage = (props) => {
   const isAuth = useSelector((state) => state?.user?.isAuth);
   const account = useSelector((state) => state?.user?.account);
-  localStorage.setItem("token", account?.access_token);
-
   const navigate = useNavigate();
   return (
     <>

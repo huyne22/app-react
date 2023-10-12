@@ -1,69 +1,73 @@
 {
-    "homeheader": {
-        "support" : "Hỗ trợ",
-        "specialist": "Chuyên khoa",
-        "health-facilities": "Cơ sở y tế",
-        "doctor": "Bác sĩ",
-        "examination-package": "Gói khám",
-        "Find-doctor-specialty": "Tìm bác sĩ theo chuyên khoa",
-        "choose-hospital-clinic" : "Chọn bệnh viện phòng khám",
-        "choose-good-doctor": "Chọn bác sĩ giỏi",
-        "General-health-check": "Khám sức khỏe tổng quát",
-        "medical-platform": "nền tảng y tế",
-        "Comprehensive-health-care": "chăm sóc sức khỏe toàn diện",
-        "Find-reason-check": "Tìm lý do khám",
-        "Welcome" : "Xin chào ,"
+    "common": {
+        "add": "Thêm",
+        "edit": "Sửa",
+        "delete": "Xóa",
+        "close": "Đóng",
+        "save": "Lưu",
+        "refresh": "Cập nhật",
+        "confirm": "Xác nhận",
+        "search" : "Tìm kiếm",
+        "support" : "Hỗ trợ"
     },
-    "banner": {
-        "Specialized-examination": "Khám chuyên khoa",
-        "Remote-examination": "Khám từ xa",
-        "General-examination": "Khám tổng quát",
-        "Medical-test":"Xét nghiệm y học",
-        "Mental-health" : "Sức khỏe tinh thần",
-        "Dental-examination" : "Khám nha khoa",
-        "Surgery-package" : "Gói phẩu thuật",
-        "Medical-products" : "Sản phẩm y tế",
-        "Health-test" : "Bài test sức khỏe",
-        "Healthcare-near-you" : "Y tế gần bạn"
+    "auth": {
+        "login": "Đăng nhập",
+        "register":"Đăng ký",
+        "username": "Tên đăng nhập",
+        "enter_email": "Nhập email",
+        "enter_password": "Nhập mật khẩu",
+        "password": "Mật khẩu",
+        "retype_password": "Nhập lại mật khẩu",
+        "userpass_wrong": "Mật khẩu của bạn không đúng!",
+        "email_wrong": "Email của bạn không đúng. Vui lòng nhập lại email!",
+        "no_account": "Bạn chưa có tài khoản?",
+        "register_here": "Đăng ký tại đây!",
+        "back_home": "Trở về trang chủ!",
+        "back": "Quay về!",
+        "create_account": "TẠO MỘT TÀI KHOẢN",
+        "valid_email": "Vui lòng nhập email hợp lệ!",
+        "have_account": "Bạn đã có tài khoản?",
+        "signin_here": "Đăng nhập tại đây!"
     },
-    "menu": {
-        "admin" : {
-            "manage-user" : "Người dùng",
-            "manage-doctor" : "Quản lý bác sĩ",
-            "manage-admin" : "Quản lý admin",
-            "crud" : "CRUD user",
-            "crud-redux" : "CRUD Redux",
-            "clinic" : "Phòng khám",
-            "manage-clinic" : "Quản lý phòng khám",
-            "specialty" : "Chuyên khoa",
-            "manage-specialty" : "Quản lý chuyên khoa",
-            "handbook" : "Cẩm nang",
-            "manage-handbook" : "Quản lý cẩm nang"
-         },
-         "doctor": {
-            "manage-schedule" : "Quản lý kế hoạch khám bệnh"
-         }
-    },
-    "manage-user": {
-        "add" : "Thêm mới người dùng",
-        "email" : "Email",
-        "password" : "Mật khẩu",
-        "firstName" : "Họ",
-        "lastName" : "Tên",
-        "phoneNumber" : "Số điện thoại",
-        "address" : "Địa chỉ",
-        "gender" : "Giới tính",
-        "position" : "Chức danh",
-        "role" : "Vai trò",
-        "image" : "Ảnh đại diện",
-        "save" : "Lưu user",
-        "edit" : "Cập nhật user"
-    },
-    "home-page":{
-        "outstanding-doctor" : "Bác sĩ nổi bật tuần qua",
-        "more-infor": "Xem thêm"
-    },
-    "manage-schedule": {
-        "title" : "Quản lý kế hoạch khám bệnh của bác sĩ"
+    "system": {
+       "home": "Trang chủ",
+       "manage": "Quản lý",
+       "service": "Dịch vụ",
+       "doctor_management": "Quản lý bác sĩ",
+       "nurse_manager": "Quản lý y tá",
+       "user_manager": "Quản lý người dùng",
+       "medication_management": "Quản lý thuốc",
+       "patient_management": "Quản lý bệnh nhân",  
+       "medical_service_management": "Quản lý dịch vụ y tế",
+       "manage_doctor's_duty_schedule": "Quản lý lịch trực bác sĩ",
+       "manage_nurse's_duty_schedule": "Quản lý lịch trực y tá",
+       "manage_patient_appointment_schedules": "Quản lý lịch hẹn bệnh nhân",
+       "manage_medical_examination_cards": "Quản lý phiếu khám bệnh",
+       "patient_management_and_medical_services": "Quản lý bệnh nhân và dịch vụ",
+       "add_new_doctor": "Thêm mới bác sĩ",
+       "add_new_nurse": "Thêm mới y tá",
+       "add_new_medicine": "Thêm mới thuốc",
+       "add_new_patient": "Thêm mới bệnh nhân",
+       "add_new_services": "Thêm mới dịch vụ",
+       "add_new_on-call_schedule": "Thêm mới lịch trực",
+       "add_new_appointment_schedule": "Thêm mới cuộc hẹn",
+       "add_new_medical_examination_card": "Thêm mới phiếu khám",
+       "add_new_patient-service": "Thêm mới bệnh nhân - dịch vụ",
+       "doctor's_name": "Tên bác sĩ",
+       "nurse's_name": "Tên y tá",
+       "medicine's_name": "Tên thuốc",
+       "phone_number": "Số điện thoại",
+       "service's_name": "Tên dịch vụ",
+       "look_up_date": "Tra ngày",
+       "List_of_doctors": "Danh sách bác sĩ",
+       "List_of_nurses": "Danh sách y tá",
+       "List_of_medicines": "Danh sách thuốc",
+       "List_of_patients": "Danh sách bệnh nhân",
+       "List_of_services": "Danh sách dịch vụ",
+       "List_of_duty_schedules": "Danh sách lịch trực",
+       "List_of_appointments": "Danh sách lịch hẹn",
+       "List_of_medical_examination_cards": "Danh sách phiếu khám bệnh",
+       "List_of_atients-services": "Danh sách bệnh nhân - dịch vụ"
+
     }
 }

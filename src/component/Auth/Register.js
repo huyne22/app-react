@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Register.scss";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postRegister } from "../service/apiService";
+import { FormattedMessage } from "react-intl";
 
 const Register = (props) => {
   const navigate = useNavigate();
@@ -50,7 +50,6 @@ const Register = (props) => {
     // Biểu thức chính quy để kiểm tra định dạng email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setIsValid(emailRegex.test(e.target.value));
-    // console.log("check valid", isValid);
   };
   return (
     <>
@@ -67,7 +66,7 @@ const Register = (props) => {
                 <div className="card" style={{ borderRadius: "15px" }}>
                   <div className="card-body p-5">
                     <h2 className="text-uppercase text-center mb-5">
-                      TẠO MỘT TÀI KHOẢN
+                      <FormattedMessage id="auth.create_account" />
                     </h2>
 
                     <form>
@@ -81,12 +80,12 @@ const Register = (props) => {
                           required
                         />
                         <label className="form-label" htmlFor="form3Example3cg">
-                          Nhập email
+                          <FormattedMessage id="auth.enter_email" />
                         </label>
                       </div>
                       {!isValid && (
                         <p style={{ color: "red" }}>
-                          Vui lòng nhập một địa chỉ email hợp lệ
+                          <FormattedMessage id="auth.valid_email" />
                         </p>
                       )}
 
@@ -100,7 +99,7 @@ const Register = (props) => {
                           required
                         />
                         <label className="form-label" htmlFor="form3Example4cg">
-                          Mật khẩu
+                          <FormattedMessage id="auth.password" />
                         </label>
                       </div>
 
@@ -117,30 +116,12 @@ const Register = (props) => {
                           className="form-label"
                           htmlFor="form3Example4cdg"
                         >
-                          Nhập lại mật khẩu
+                          <FormattedMessage id="auth.retype_password" />
                         </label>
                       </div>
                       <div className="col-12" style={{ color: "red" }}>
                         {errMessage && <p>{errMessage}</p>}
                       </div>
-
-                      {/* <div className="form-check d-flex justify-content-center mb-5"> */}
-                      {/* <input
-                          className="form-check-input me-2"
-                          type="checkbox"
-                          value=""
-                          id="form2Example3cg"
-                        /> */}
-                      {/* <label
-                          className="form-check-label"
-                          htmlFor="form2Example3g"
-                        >
-                          Tôi đồng ý tất cả các tuyên bố trong{" "}
-                          <a href="#" className="text-body">
-                            <u>Điều khoản dịch vụ</u>
-                          </a>
-                        </label> */}
-                      {/* </div> */}
 
                       <div className="d-flex justify-content-center">
                         <button
@@ -148,22 +129,29 @@ const Register = (props) => {
                           className="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
                           onClick={(e) => handleSubmit(e)}
                         >
-                          Đăng ký
+                          <FormattedMessage id="auth.register" />
                         </button>
                       </div>
 
                       <div className="text-center text-muted mb-3">
-                        Bạn đã có tài khoản?{" "}
+                        <FormattedMessage id="auth.have_account" />
+
                         <a href="#" className="fw-bold text-body">
                           <Link to="/login">
-                            <u>Đăng nhập tại đây</u>
+                            <u>
+                              {" "}
+                              <FormattedMessage id="auth.signin_here" />
+                            </u>
                           </Link>
                         </a>
                       </div>
                       <div className="text-center text-muted ms-2">
-                        Quay về trang chủ?{" "}
+                        <FormattedMessage id="auth.back_home" />
                         <a href="#" className="fw-bold text-body">
-                          <Link to="/">Quay về</Link>
+                          <Link to="/">
+                            {" "}
+                            <FormattedMessage id="auth.back" />
+                          </Link>
                         </a>
                       </div>
                     </form>

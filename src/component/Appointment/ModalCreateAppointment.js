@@ -3,9 +3,9 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { postCreateAppointment } from "../service/apiService";
 import { toast } from "react-toastify";
+import { FormattedMessage } from "react-intl";
 
 const ModalCreateAppointment = (props) => {
-  //modal
   const { show, setShow } = props;
   const [ngay, setNgay] = useState("");
   const [buoi, setBuoi] = useState("");
@@ -19,9 +19,7 @@ const ModalCreateAppointment = (props) => {
     setMaBN("");
   }, [show]);
   const handleSubmit = async (e) => {
-    // Thực hiện xử lý gửi dữ liệu đi ở đây, ví dụ: gọi hàm để lưu thông tin lịch trực
     let res = await postCreateAppointment(ngay, buoi, maBS, maBN);
-    // console.log("chek", res);
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới lịch hẹn thành công!");
@@ -43,7 +41,9 @@ const ModalCreateAppointment = (props) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Thêm lịch hẹn mới</Modal.Title>
+          <Modal.Title>
+            <FormattedMessage id="system.add_new_appointment_schedule" />
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container mt-3">
@@ -107,10 +107,10 @@ const ModalCreateAppointment = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShow(false)}>
-            Close
+            <FormattedMessage id="common.edit" />
           </Button>
           <Button variant="primary" onClick={(e) => handleSubmit(e)}>
-            Save
+            <FormattedMessage id="common.delete" />
           </Button>
         </Modal.Footer>
       </Modal>

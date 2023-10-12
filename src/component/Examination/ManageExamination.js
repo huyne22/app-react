@@ -10,6 +10,8 @@ import ModalEditExamination from "./ModalEditExamination";
 import ModalDeleteExamination from "./ModalDeleteExamination";
 import SearchDate from "./service/searchDate";
 import withAuth from "../Admin/withAuth";
+import { FormattedMessage } from "react-intl";
+
 const ManageExamination = (props) => {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -19,7 +21,6 @@ const ManageExamination = (props) => {
   const [totalPage, setTotalPage] = useState(0);
   const [totalUser, setTotalUser] = useState(0);
 
-  //call api render list bệnh nhân
   useEffect(() => {
     fetchListExamination();
   }, []);
@@ -33,7 +34,6 @@ const ManageExamination = (props) => {
     }
   };
 
-  //click nút edit
   const handleBtnUpdate = (examination) => {
     setShow1(true);
     setDataUpdate(examination);
@@ -41,23 +41,22 @@ const ManageExamination = (props) => {
   const handleBtnDelete = (examination) => {
     setShow2(true);
     setDataUpdate(examination);
-    // console.log("show2", show2);
-    // console.log("dataUpdate", dataUpdate);
   };
   const handleSearchDate = async (search) => {
     let date = { Ngay: search.toString() };
     let res = await getMedicalExaminationSearch(date);
-    // console.log("check res", res);
     return res;
   };
   return (
     <div className="manage-user-container">
-      <div className="title">Quản lý phiếu khám bệnh</div>
+      <div className="title">
+        <FormattedMessage id="system.manage_medical_examination_cards" />
+      </div>
       <div className="user-content">
         <div className="btn-add-new">
           <button className="btn btn-primary" onClick={() => setShow(true)}>
             <FcPlus />
-            Thêm mới phiếu khám bệnh
+            <FormattedMessage id="system.add_new_medical_examination_card" />
           </button>
         </div>
       </div>

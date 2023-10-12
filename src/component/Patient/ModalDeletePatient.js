@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useEffect } from "react";
-import _ from "lodash";
 import { toast } from "react-toastify";
 import { postDeletePatient } from "../service/apiService";
 const ModalDeletePatient = (props) => {
@@ -12,7 +10,6 @@ const ModalDeletePatient = (props) => {
   const handleSubmit2 = async (e) => {
     let a = { MaBN: dataUpdate.MaBN.toString() };
     let res = await postDeletePatient(a);
-    // console.log("res", res);
     if (res?.errCode == 0) {
       toast.success("Xóa bệnh nhân thành công!");
       await fetchListPatient();
@@ -21,7 +18,7 @@ const ModalDeletePatient = (props) => {
     } else {
       toast.error("Xóa bệnh nhân thất bại!");
     }
-    handleClose2(); // Đóng modal sau khi xác nhận xóa
+    handleClose2();
   };
   return (
     <>

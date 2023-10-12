@@ -5,11 +5,16 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
 import withAuth from "./withAuth";
-const Admin = (props) => {
-  const [collapsed, setCollapsed] = useState(false);
+import { changeLanguage } from "../../redux/action/userAction";
 
-  // console.log("in ra ", props.data);
+const Admin = (props) => {
+  const dispath = useDispatch();
+  const [collapsed, setCollapsed] = useState(false);
+  const changeLanguages = (ev) => {
+    dispath(changeLanguage(ev));
+  };
   return (
     <>
       <div className="admin-container">
@@ -19,6 +24,14 @@ const Admin = (props) => {
         <div className="admin-content ms-2">
           <div className="admin-header">
             <FaBars cursor="pointer" onClick={() => setCollapsed(!collapsed)} />
+            <div className="language">
+              <div className="language-vi">
+                <span onClick={() => changeLanguages("vi")}>VI</span>
+              </div>
+              <div className="language-en">
+                <span onClick={() => changeLanguages("en")}>EN</span>
+              </div>
+            </div>
           </div>
           <div className="admin-main">
             <Outlet />

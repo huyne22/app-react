@@ -19,12 +19,10 @@ const ModalEditPatient = (props) => {
   const [yourObject, setYourObject] = useState({});
 
   const updateObjectWithNewProperty = () => {
-    // Tạo bản sao của đối tượng hiện tại để không ghi đè lên trực tiếp
     const updatedObject = { ...yourObject };
-    setYourObject(updatedObject); // Cập nhật đối tượng với thuộc tính mới
+    setYourObject(updatedObject);
   };
   useEffect(() => {
-    // console.log("dataUpdate");
     if (!_.isEmpty(dataUpdate)) {
       setMaBN(dataUpdate.MaBN);
       setHoBN(dataUpdate.HoBN);
@@ -39,63 +37,54 @@ const ModalEditPatient = (props) => {
     } else {
     }
   }, [dataUpdate]);
-  //ma
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
       MaBN: maBN.toString(),
     }));
   }, [maBN]);
-  //ho
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
       HoBN: hoBN,
     }));
   }, [hoBN]);
-  //ten
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
       TenBN: tenBN,
     }));
   }, [tenBN]);
-  //soDT
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
       SoDT: soDT,
     }));
   }, [soDT]);
-  //email
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
       Email: email,
     }));
   }, [email]);
-  //ngaySinh
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
       NgaySinh: ngaySinh,
     }));
   }, [ngaySinh]);
-  //gioiTinh
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
       GioiTinh: gioiTinh,
     }));
   }, [gioiTinh]);
-  //diaChi
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
       DiaChi: diaChi,
     }));
   }, [diaChi]);
-  // ghiChu
   useEffect(() => {
     setYourObject((prevObject) => ({
       ...prevObject,
@@ -104,10 +93,7 @@ const ModalEditPatient = (props) => {
   }, [ghiChu]);
 
   const handleSubmit = async (e) => {
-    // console.log("yourObject", yourObject.NgaySinh);
-
     let res = await postEditPatient(yourObject);
-    // console.log(res);
     if (res?.errCode === 0) {
       setShow1(false);
       toast.success("Cập nhật bệnh nhân thành công!");
@@ -122,15 +108,6 @@ const ModalEditPatient = (props) => {
 
   const handleClose = () => {
     setShow1(false);
-    // setMaBN("");
-    // setHoBN("");
-    // setTenBN("");
-    // setSoDT("");
-    // setEmail("");
-    // setNgaySinh("");
-    // setGioiTinh("Nam");
-    // setDiaChi("");
-    // console.log("close");
   };
   return (
     <>

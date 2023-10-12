@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useEffect } from "react";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { postDeletePatientMedicalService } from "../service/apiService";
@@ -16,7 +15,6 @@ const ModalDeletePatientMedicalService = (props) => {
       dataUpdate.Ngay,
       dataUpdate.Buoi
     );
-    // console.log("res", res);
     if (res?.errCode == 0) {
       toast.success("Xóa phiếu bệnh nhân - dịch vụ thành công!");
       await fetchListPatientMedicalService();
@@ -25,7 +23,7 @@ const ModalDeletePatientMedicalService = (props) => {
     } else {
       toast.error("Xóa phiếu bệnh nhân - dịch vụ thất bại!");
     }
-    handleClose2(); // Đóng modal sau khi xác nhận xóa
+    handleClose2();
   };
   return (
     <>

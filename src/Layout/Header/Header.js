@@ -1,5 +1,4 @@
 import "./Header.scss";
-import "../../Layout/base.scss";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { doLogout } from "../../redux/action/userAction";
@@ -27,6 +26,56 @@ const Header = () => {
   };
 
   return (
+    // <Navbar expand="lg" className="bg-body-tertiary">
+    //   <Container className="container-top">
+    //     <NavLink to="/" className="navbar-brand">
+    //       <div className="logo-container">
+    //         <img src={logoImage} alt="Logo" className="logo" />
+    //       </div>
+    //     </NavLink>
+    //     <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    //     <Navbar.Collapse id="basic-navbar-nav">
+    //       <Nav className="header-left">
+    //         <NavLink to="/" className="text-logo">
+    //           <p>Phòng khám đa khoa</p>
+    //           <span>
+    //             {" "}
+    //             <FormattedMessage id="common.support" />
+    //           </span>
+    //         </NavLink>
+    //       </Nav>
+    //       <Nav className="header-right">
+    //         {isAuth === false ? (
+    //           <>
+    //             <div className="header-login">
+    //               <button className="btn-login" onClick={() => handleLogin()}>
+    //                 Log in
+    //               </button>
+    //               <button
+    //                 className="btn-signup"
+    //                 onClick={() => handleRegister()}
+    //               >
+    //                 Sign up
+    //               </button>
+    //             </div>
+    //           </>
+    //         ) : (
+    //           <>
+    //             <div className="header-welcome">
+    //               <h6 className="text-welcome">Xin chào {account?.email}</h6>
+    //             </div>
+
+    //             <NavDropdown title="Setting" id="basic-nav-dropdown">
+    //               <NavDropdown.Item onClick={() => handleLogout()}>
+    //                 Log out
+    //               </NavDropdown.Item>
+    //             </NavDropdown>
+    //           </>
+    //         )}
+    //       </Nav>
+    //     </Navbar.Collapse>
+    //   </Container>
+    // </Navbar>
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container className="container-top">
         <NavLink to="/" className="navbar-brand">
@@ -36,47 +85,42 @@ const Header = () => {
         </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="header-left">
-            <NavLink to="/" className="text-logo">
-              <p>Phòng khám đa khoa</p>
-              <span>
-                {" "}
-                <FormattedMessage id="homeheader.support" />
-              </span>
-            </NavLink>
-          </Nav>
-          <Nav className="header-right">
-            {isAuth === false ? (
-              <>
-                <div className="header-login">
-                  <button className="btn-login" onClick={() => handleLogin()}>
+          <Nav className="ms-auto align-items-center">
+            <NavLink to="/" className="text-logo nav-link"></NavLink>
+            <div className="header-buttons">
+              {isAuth === false ? (
+                <>
+                  <button
+                    className="btn btn-login"
+                    onClick={() => handleLogin()}
+                  >
                     Log in
                   </button>
                   <button
-                    className="btn-signup"
+                    className="btn btn-signup"
                     onClick={() => handleRegister()}
                   >
                     Sign up
                   </button>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="header-welcome">
-                  <h6 className="text-welcome">Xin chào {account?.email}</h6>
-                </div>
-
-                <NavDropdown title="Setting" id="basic-nav-dropdown">
-                  <NavDropdown.Item onClick={() => handleLogout()}>
-                    Log out
-                  </NavDropdown.Item>
-                </NavDropdown>
-              </>
-            )}
+                </>
+              ) : (
+                <>
+                  <div className="header-welcome">
+                    <h6 className="text-welcome">Xin chào {account?.email}</h6>
+                  </div>
+                  <NavDropdown title="Setting" id="basic-nav-dropdown">
+                    <NavDropdown.Item onClick={() => handleLogout()}>
+                      Log out
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </>
+              )}
+            </div>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
+
     // <>
     //   <div className="app">
     //     <div className="header">

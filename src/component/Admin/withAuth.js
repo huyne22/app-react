@@ -7,11 +7,9 @@ const withAuth = (WrappedComponent) => {
     const isAuth = useSelector((state) => state?.user?.isAuth);
     useEffect(() => {
       if (!isAuth) {
-        // console.log("kad");
         navigate("/login");
       }
     }, [navigate]);
-    // Nếu có token, render component WrappedComponent
     return <WrappedComponent {...props} />;
   };
 

@@ -1,5 +1,6 @@
 import React from "react";
 import Paginate from "../../Layout/Paginate";
+import { FormattedMessage } from "react-intl";
 
 const TableListAppointment = (props) => {
   const { listAppointment, totalPage, fetchListAppointment } = props;
@@ -13,7 +14,9 @@ const TableListAppointment = (props) => {
         className="container mt-4"
         style={{ backgroundColor: "rgb(234 233 233)" }}
       >
-        <h1>Danh sách lịch hẹn</h1>
+        <h1>
+          <FormattedMessage id="system.List_of_appointments" />
+        </h1>
         <table className="table table-striped table-bordered table-hover table-spacing">
           <thead>
             <tr>
@@ -33,13 +36,6 @@ const TableListAppointment = (props) => {
                   <td>{item.MaBS}</td>
                   <td>{item.MaBN}</td>
                   <td>
-                    {/* <button
-                      className="btn btn-warning"
-                      onClick={() => props.handleBtnUpdate(item)}
-                    >
-                      Sửa
-                    </button> */}
-
                     <button
                       className="btn btn-danger ms-2"
                       onClick={() => props.handleBtnDelete(item)}

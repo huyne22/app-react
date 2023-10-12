@@ -1,5 +1,6 @@
 import React from "react";
 import Paginate from "../../Layout/Paginate";
+import { FormattedMessage } from "react-intl";
 
 const TableListDoctor = (props) => {
   const { listDoctor, totalPage, fetchListDoctor } = props;
@@ -13,7 +14,10 @@ const TableListDoctor = (props) => {
         className="container mt-4"
         style={{ backgroundColor: "rgb(234 233 233)" }}
       >
-        <h1>Danh sách bác sĩ</h1>
+        <h1>
+          {" "}
+          <FormattedMessage id="system.List_of_doctors" />
+        </h1>
         <table className="table table-striped table-bordered table-hover table-spacing">
           <thead>
             <tr>

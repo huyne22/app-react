@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import { getAllAppointment, getAppointmentSearch } from "../service/apiService";
 import ModalCreateAppointment from "./ModalCreateAppointment";
 import TableListAppointment from "./TableListAppointment";
-import ModalEditAppointment from "./ModalEditAppointment";
 import ModalDeleteAppointment from "./ModalDeleteAppointment";
 import SearchDate from "./service/searchDate";
 import withAuth from "../Admin/withAuth";
+import { FormattedMessage } from "react-intl";
 
 const ManageAppointment = (props) => {
   const [show, setShow] = useState(false);
@@ -16,13 +16,11 @@ const ManageAppointment = (props) => {
   const [listAppointment, setListAppointment] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
   const [totalUser, setTotalUser] = useState(0);
-  //call api render list lịch trực
   useEffect(() => {
     fetchListAppointment();
   }, []);
   const fetchListAppointment = async (page) => {
     let res = await getAllAppointment("ALL", page);
-    // console.log("check res", res);
     if (res && res.errCode === 0) {
       setListAppointment(res.data);
       setTotalUser(res?.pagination?.total);
@@ -30,7 +28,6 @@ const ManageAppointment = (props) => {
     }
   };
 
-  //click nút edit
   const handleBtnUpdate = (appointment) => {
     setShow1(true);
     setDataUpdate(appointment);
@@ -38,24 +35,23 @@ const ManageAppointment = (props) => {
   const handleBtnDelete = (appointment) => {
     setShow2(true);
     setDataUpdate(appointment);
-    // console.log("show2", show2);
-    // console.log("dataUpdate", dataUpdate);
   };
   const handleSearchDate = async (search) => {
     let date = { Ngay: search.toString() };
     let res = await getAppointmentSearch(date);
-    // console.log("check res", res);
     return res;
   };
 
   return (
     <div className="manage-user-container">
-      <div className="title">Quản lý lịch hẹn</div>
+      <div className="title">
+        <FormattedMessage id="system.manage_patient_appointment_schedules" />
+      </div>
       <div className="user-content">
         <div className="btn-add-new">
           <button className="btn btn-primary" onClick={() => setShow(true)}>
             <FcPlus />
-            Thêm mới lịch hẹn
+            <FormattedMessage id="system.add_new_appointment_schedule" />
           </button>
         </div>
       </div>
@@ -74,12 +70,7 @@ const ManageAppointment = (props) => {
         setShow={setShow}
         fetchListAppointment={fetchListAppointment}
       />
-      <ModalEditAppointment
-        show1={show1}
-        setShow1={setShow1}
-        dataUpdate={dataUpdate}
-        fetchListAppointment={fetchListAppointment}
-      />
+
       <ModalDeleteAppointment
         show2={show2}
         setShow2={setShow2}

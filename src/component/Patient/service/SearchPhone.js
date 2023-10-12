@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "../../../Layout/search__input.scss";
+import { FormattedMessage } from "react-intl";
+
 const SearchPhone = (props) => {
   const [soDT, setSoDT] = useState("");
   const [isVisible, setIsVisible] = useState(true);
@@ -18,7 +19,7 @@ const SearchPhone = (props) => {
       <div>
         <div className="mb-3">
           <label htmlFor="SoDT" className="form-label">
-            Số Điện Thoại
+            <FormattedMessage id="system.phone_number" />
           </label>
           <input
             type="tel"
@@ -27,11 +28,10 @@ const SearchPhone = (props) => {
             name="SoDT"
             value={soDT}
             onChange={(e) => setSoDT(e.target.value)}
-            required
           />
         </div>
         <button className="btn-search" onClick={handleSearch}>
-          Tìm kiếm
+          <FormattedMessage id="common.search" />
         </button>
       </div>
       <table className="table table-striped table-bordered table-hover table-spacing">

@@ -10,6 +10,8 @@ import ModalEditMedicalService from "./ModalEditMedicalService";
 import ModalDeleteMedicalService from "./ModalDeleteMedicalService";
 import SearchName from "./service/searchName.js";
 import withAuth from "../Admin/withAuth";
+import { FormattedMessage } from "react-intl";
+
 const ManageMedicalService = (props) => {
   const [show, setShow] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -19,13 +21,11 @@ const ManageMedicalService = (props) => {
   const [totalPage, setTotalPage] = useState(0);
   const [totalUser, setTotalUser] = useState(0);
 
-  //call api render list bệnh nhân
   useEffect(() => {
     fetchListMedicalService();
   }, []);
   const fetchListMedicalService = async (page) => {
     let res = await getAllMedicalService("ALL", page);
-    // console.log("check res", res);
     if (res && res.errCode == 0) {
       setListMedicalService(res.data);
       setTotalUser(res?.pagination?.total);
@@ -33,7 +33,6 @@ const ManageMedicalService = (props) => {
     }
   };
 
-  //click nút edit
   const handleBtnUpdate = (medicalService) => {
     setShow1(true);
     setDataUpdate(medicalService);
@@ -41,8 +40,6 @@ const ManageMedicalService = (props) => {
   const handleBtnDelete = (medicalService) => {
     setShow2(true);
     setDataUpdate(medicalService);
-    // console.log("show2", show2);
-    // console.log("dataUpdate", dataUpdate);
   };
   const handleSearchName = async (search) => {
     console.log("a", search);
@@ -54,12 +51,15 @@ const ManageMedicalService = (props) => {
 
   return (
     <div className="manage-user-container">
-      <div className="title">Quản lý dịch vụ</div>
+      <div className="title">
+        {" "}
+        <FormattedMessage id="system.medical_service_management" />
+      </div>
       <div className="user-content">
         <div className="btn-add-new">
           <button className="btn btn-primary" onClick={() => setShow(true)}>
             <FcPlus />
-            Thêm mới dịch vụ
+            <FormattedMessage id="system.add_new_services" />
           </button>
         </div>
       </div>

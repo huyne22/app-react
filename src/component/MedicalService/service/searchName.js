@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../../Layout/search__input.scss";
+import { FormattedMessage } from "react-intl";
 
 const SearchName = (props) => {
   const [tenDV, setTenDV] = useState("");
@@ -20,7 +20,7 @@ const SearchName = (props) => {
       <div>
         <div className="mb-3">
           <label htmlFor="TenDV" className="form-label">
-            Tên dịch vụ
+            <FormattedMessage id="system.service's_name" />
           </label>
           <input
             type="text"
@@ -33,7 +33,7 @@ const SearchName = (props) => {
           />
         </div>
         <button className="btn-search" onClick={handleSearch}>
-          Tìm kiếm
+          <FormattedMessage id="common.search" />
         </button>
       </div>
       <table className="table table-striped table-bordered table-hover table-spacing">

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useEffect } from "react";
 import _ from "lodash";
 import { toast } from "react-toastify";
 import { postDeleteAppointment } from "../service/apiService";
@@ -10,9 +9,6 @@ const ModalDeleteAppointment = (props) => {
   const handleShow2 = () => setShow2(true);
   const handleClose2 = () => setShow2(false);
   const handleSubmit2 = async (e) => {
-    // let a = { Ngay: dataUpdate.Ngay.toString() };
-    // console.log("a", dataUpdate.Ngay);
-    // console.log("dataUpdate", dataUpdate);
     let res = await postDeleteAppointment(
       dataUpdate.Ngay,
       dataUpdate.Buoi,
