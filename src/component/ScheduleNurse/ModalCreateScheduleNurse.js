@@ -3,8 +3,11 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { postCreateScheduleNurse } from "../service/apiService";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const ModalCreateScheduleNurse = (props) => {
+  const account = useSelector((state) => state?.user?.account);
+
   const { show, setShow } = props;
   const [ngay, setNgay] = useState("");
   const [buoi, setBuoi] = useState("");
@@ -20,13 +23,24 @@ const ModalCreateScheduleNurse = (props) => {
     setGhiChu("");
   }, [show]);
   const handleSubmit = async (e) => {
-    let res = await postCreateScheduleNurse(
-      ngay,
-      buoi,
-      maYTa,
-      soLuongBNToiDa,
-      ghiChu
-    );
+    let res = null;
+    if (account?.role === "Nurse") {
+      res = await postCreateScheduleNurse(
+        ngay,
+        buoi,
+        account.id,
+        soLuongBNToiDa,
+        ghiChu
+      );
+    } else {
+      res = await postCreateScheduleNurse(
+        ngay,
+        buoi,
+        maYTa,
+        soLuongBNToiDa,
+        ghiChu
+      );
+    }
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới lịch trực thành công!");
@@ -80,20 +94,35 @@ const ModalCreateScheduleNurse = (props) => {
                 required
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="MaYTa" className="form-label">
-                Mã Y tá
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="MaYTa"
-                name="MaYTa"
-                value={maYTa}
-                onChange={(e) => setMaYTa(e.target.value)}
-                required
-              />
-            </div>
+            {account && account.role === "Nurse" ? (
+              <div className="mb-3">
+                <label htmlFor="MaYTa" className="form-label">
+                  Mã Y tá
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={account?.id}
+                  disabled
+                />
+              </div>
+            ) : (
+              <div className="mb-3">
+                <label htmlFor="MaYTa" className="form-label">
+                  Mã Y tá
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="MaYTa"
+                  name="MaYTa"
+                  value={maYTa}
+                  onChange={(e) => setMaYTa(e.target.value)}
+                  required
+                />
+              </div>
+            )}
+
             <div className="mb-3">
               <label htmlFor="SoLuongBNToiDa" className="form-label">
                 Số lượng Bệnh nhân tối đa

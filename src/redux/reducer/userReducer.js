@@ -8,6 +8,8 @@ const initialState = {
     access_token: null,
     refresh_token: null,
     email: null,
+    id: null,
+    role: null,
   },
   isAuth: false,
   language: "vi",
@@ -21,6 +23,8 @@ const userReducer = (state = initialState, acction) => {
           access_token: acction?.payload?.token?.access_token,
           refresh_token: acction?.payload?.token?.refresh_token,
           email: acction?.payload?.data[0]?.TenDangNhap,
+          id: acction?.payload?.id,
+          role: acction?.payload?.role,
         },
         isAuth: true,
       };

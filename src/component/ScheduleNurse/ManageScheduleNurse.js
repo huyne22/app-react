@@ -1,6 +1,9 @@
 import { FcPlus } from "react-icons/fc";
 import { useState, useEffect } from "react";
-import { getAllScheduleNurse, getScheduleSearch } from "../service/apiService";
+import {
+  getAllScheduleNurse,
+  getScheduleNurseSearch,
+} from "../service/apiService";
 import ModalCreateScheduleNurse from "./ModalCreateScheduleNurse";
 import TableListScheduleNurse from "./TableListScheduleNurse";
 import ModalEditScheduleNurse from "./ModalEditScheduleNurse";
@@ -39,14 +42,14 @@ const ManageScheduleNurse = (props) => {
   };
   const handleSearchDate = async (search) => {
     let date = { Ngay: search.toString() };
-    let res = await getScheduleSearch(date);
+    let res = await getScheduleNurseSearch(date);
     return res;
   };
 
   return (
     <div className="manage-user-container">
       <div className="title">
-        <FormattedMessage id="system.manage_doctor's_duty_schedule" />
+        <FormattedMessage id="system.manage_nurse's_duty_schedule" />
       </div>
       <div className="user-content">
         <div className="btn-add-new">

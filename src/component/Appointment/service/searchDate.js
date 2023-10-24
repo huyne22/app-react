@@ -3,7 +3,7 @@ import { FormattedMessage } from "react-intl";
 
 const SearchDate = (props) => {
   const [ngay, setNgay] = useState("");
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const { onSearch } = props;
   const [data, setData] = useState("");
   const handleSearch = async () => {
@@ -36,21 +36,14 @@ const SearchDate = (props) => {
         </button>
       </div>
       <table className="table table-striped table-bordered table-hover table-spacing">
-        <div style={{ display: isVisible ? "block" : "none" }}>
+        <div className={`${isVisible ? "block" : "none"}`}>
           {data?.data &&
             data?.data?.map((item, index) => (
-              <tr key={index}>
+              <tr key={index} className="yellow-row">
                 <td>{item.Ngay.split("T")[0]}</td>
                 <td>{item.Buoi}</td>
                 <td>{item.MaBS}</td>
                 <td>{item.MaBN}</td>
-                <button
-                  color={{ color: "#7089af" }}
-                  className="hidden-btn"
-                  onClick={() => toggleVisibility()}
-                >
-                  ẩn
-                </button>
               </tr>
             ))}
         </div>

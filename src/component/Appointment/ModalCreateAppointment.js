@@ -110,7 +110,7 @@ const ModalCreateAppointment = (props) => {
             <FormattedMessage id="common.edit" />
           </Button>
           <Button variant="primary" onClick={(e) => handleSubmit(e)}>
-            <FormattedMessage id="common.delete" />
+            <FormattedMessage id="common.add" />
           </Button>
         </Modal.Footer>
       </Modal>

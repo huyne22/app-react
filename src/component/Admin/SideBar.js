@@ -59,7 +59,10 @@ const SideBar = (props) => {
 
         <SidebarContent>
           <Menu iconShape="circle">
-            <SubMenu icon={<FaGem />} title="Quản lý">
+            <SubMenu
+              icon={<FaGem />}
+              title={<FormattedMessage id="system.manage" />}
+            >
               <MenuItem icon={<FaGem />}>
                 <FormattedMessage id="system.user_manager" />
 
@@ -82,7 +85,10 @@ const SideBar = (props) => {
             </SubMenu>
           </Menu>
           <Menu iconShape="circle">
-            <SubMenu icon={<FaGem />} title="Dịch vụ">
+            <SubMenu
+              icon={<FaGem />}
+              title={<FormattedMessage id="system.service" />}
+            >
               <MenuItem>
                 <FormattedMessage id="system.patient_management" />
 

@@ -3,7 +3,7 @@ import { FormattedMessage } from "react-intl";
 
 const SearchPhone = (props) => {
   const [soDT, setSoDT] = useState("");
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const { onSearch } = props;
   const [data, setData] = useState("");
   const handleSearch = async () => {
@@ -35,10 +35,10 @@ const SearchPhone = (props) => {
         </button>
       </div>
       <table className="table table-striped table-bordered table-hover table-spacing">
-        <div style={{ display: isVisible ? "block" : "none" }}>
+        <div className={`${isVisible ? "block" : "none"}`}>
           {data?.data &&
             data?.data?.map((item, index) => (
-              <tr key={index}>
+              <tr key={index} className="yellow-row">
                 <td>{item.MaBN}</td>
                 <td>{item.HoBN}</td>
                 <td>{item.TenBN}</td>

@@ -44,6 +44,7 @@ const ManagePatient = (props) => {
   };
   const handleSearchPhone = async (search) => {
     let tel = { SoDT: search.toString() };
+
     let res = await getPatientSearch(tel);
     return res;
   };

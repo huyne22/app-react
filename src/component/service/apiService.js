@@ -577,7 +577,7 @@ const postDeletePatientMedicalService = async (MaBN, MaDV, Ngay, Buoi) => {
 const getPatientSearch = async (sdt) => {
   try {
     console.log("sdt", sdt);
-    const response = await axios.post("${apiBaseUrl}api/get-patient-search", {
+    const response = await axios.post(`${apiBaseUrl}api/get-patient-search`, {
       sdt,
     });
     return response;
@@ -591,7 +591,7 @@ const getAppointmentSearch = async (ngay) => {
   try {
     console.log("ngay", ngay);
     const response = await axios.post(
-      "${apiBaseUrl}api/get-patient-apointment-search",
+      `${apiBaseUrl}api/get-patient-apointment-search`,
       {
         ngay,
       }
@@ -607,7 +607,23 @@ const getScheduleSearch = async (ngay) => {
   try {
     console.log("ngay", ngay);
     const response = await axios.post(
-      "${apiBaseUrl}api/get-doctor-schedule-search",
+      `${apiBaseUrl}api/get-doctor-schedule-search`,
+      {
+        ngay,
+      }
+    );
+    return response;
+  } catch (error) {
+    console.error("Lỗi khi gọi API:", error);
+    throw error; // Re-throw lỗi để xử lý ở phần gọi hàm getPatientSearch
+  }
+};
+
+const getScheduleNurseSearch = async (ngay) => {
+  try {
+    console.log("ngay", ngay);
+    const response = await axios.post(
+      `${apiBaseUrl}api/get-nurse-schedule-search`,
       {
         ngay,
       }
@@ -623,7 +639,7 @@ const getMedicalExaminationSearch = async (ngay) => {
   try {
     console.log("ngay", ngay);
     const response = await axios.post(
-      "${apiBaseUrl}api/get-medical-examination-search",
+      `${apiBaseUrl}api/get-medical-examination-search`,
       {
         ngay,
       }
@@ -639,7 +655,7 @@ const getPatientMedicalServiceSearch = async (ngay) => {
   try {
     console.log("ngay", ngay);
     const response = await axios.post(
-      "${apiBaseUrl}api/get-patient-medical-service-search",
+      `${apiBaseUrl}api/get-patient-medical-service-search`,
       {
         ngay,
       }
@@ -816,6 +832,7 @@ export {
   getPatientSearch,
   getAppointmentSearch,
   getScheduleSearch,
+  getScheduleNurseSearch,
   getMedicalExaminationSearch,
   getPatientMedicalServiceSearch,
   getMedicalServiceSearch,

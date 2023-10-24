@@ -3,8 +3,11 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { postCreateSchedule } from "../service/apiService";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const ModalCreateSchedule = (props) => {
+  const account = useSelector((state) => state?.user?.account);
+
   const { show, setShow } = props;
   const [ngay, setNgay] = useState("");
   const [buoi, setBuoi] = useState("");
@@ -20,13 +23,19 @@ const ModalCreateSchedule = (props) => {
     setGhiChu("");
   }, [show]);
   const handleSubmit = async (e) => {
-    let res = await postCreateSchedule(
-      ngay,
-      buoi,
-      maBS,
-      soLuongBNToiDa,
-      ghiChu
-    );
+    let res = null;
+    if (account?.role === "Doctor") {
+      res = await postCreateSchedule(
+        ngay,
+        buoi,
+        account.id,
+        soLuongBNToiDa,
+        ghiChu
+      );
+    } else {
+      res = await postCreateSchedule(ngay, buoi, maBS, soLuongBNToiDa, ghiChu);
+    }
+
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới lịch trực thành công!");
@@ -80,7 +89,7 @@ const ModalCreateSchedule = (props) => {
                 required
               />
             </div>
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <label htmlFor="MaBS" className="form-label">
                 Mã Bác sĩ
               </label>
@@ -93,7 +102,35 @@ const ModalCreateSchedule = (props) => {
                 onChange={(e) => setMaBS(e.target.value)}
                 required
               />
-            </div>
+            </div> */}
+            {account && account.role === "Doctor" ? (
+              <div className="mb-3">
+                <label htmlFor="MaBS" className="form-label">
+                  Mã Bác sĩ
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={account?.id}
+                  disabled
+                />
+              </div>
+            ) : (
+              <div className="mb-3">
+                <label htmlFor="MaBS" className="form-label">
+                  Mã Bác sĩ
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="MaBS"
+                  name="MaBS"
+                  value={maBS}
+                  onChange={(e) => setMaBS(e.target.value)}
+                  required
+                />
+              </div>
+            )}
             <div className="mb-3">
               <label htmlFor="SoLuongBNToiDa" className="form-label">
                 Số lượng Bệnh nhân tối đa

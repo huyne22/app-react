@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import logoImage from "../../assect/clinicHeader.jpg";
 import { Container, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { FormattedMessage } from "react-intl";
-import LanguageUtils from "../../utils/LanguageUtils";
 const Header = () => {
   const dispath = useDispatch();
 
@@ -26,56 +25,6 @@ const Header = () => {
   };
 
   return (
-    // <Navbar expand="lg" className="bg-body-tertiary">
-    //   <Container className="container-top">
-    //     <NavLink to="/" className="navbar-brand">
-    //       <div className="logo-container">
-    //         <img src={logoImage} alt="Logo" className="logo" />
-    //       </div>
-    //     </NavLink>
-    //     <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    //     <Navbar.Collapse id="basic-navbar-nav">
-    //       <Nav className="header-left">
-    //         <NavLink to="/" className="text-logo">
-    //           <p>Phòng khám đa khoa</p>
-    //           <span>
-    //             {" "}
-    //             <FormattedMessage id="common.support" />
-    //           </span>
-    //         </NavLink>
-    //       </Nav>
-    //       <Nav className="header-right">
-    //         {isAuth === false ? (
-    //           <>
-    //             <div className="header-login">
-    //               <button className="btn-login" onClick={() => handleLogin()}>
-    //                 Log in
-    //               </button>
-    //               <button
-    //                 className="btn-signup"
-    //                 onClick={() => handleRegister()}
-    //               >
-    //                 Sign up
-    //               </button>
-    //             </div>
-    //           </>
-    //         ) : (
-    //           <>
-    //             <div className="header-welcome">
-    //               <h6 className="text-welcome">Xin chào {account?.email}</h6>
-    //             </div>
-
-    //             <NavDropdown title="Setting" id="basic-nav-dropdown">
-    //               <NavDropdown.Item onClick={() => handleLogout()}>
-    //                 Log out
-    //               </NavDropdown.Item>
-    //             </NavDropdown>
-    //           </>
-    //         )}
-    //       </Nav>
-    //     </Navbar.Collapse>
-    //   </Container>
-    // </Navbar>
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container className="container-top">
         <NavLink to="/" className="navbar-brand">
@@ -106,7 +55,21 @@ const Header = () => {
               ) : (
                 <>
                   <div className="header-welcome">
-                    <h6 className="text-welcome">Xin chào {account?.email}</h6>
+                    <h6 className="text-welcome">
+                      <FormattedMessage id="system.hello" />
+
+                      {account && (
+                        <div>
+                          <span>UserName: {account.email}</span>
+                          {account.role === "Doctor" && (
+                            <span> {account.role}</span>
+                          )}
+                          {account.role === "Nurse" && (
+                            <span> {account.role}</span>
+                          )}
+                        </div>
+                      )}
+                    </h6>
                   </div>
                   <NavDropdown title="Setting" id="basic-nav-dropdown">
                     <NavDropdown.Item onClick={() => handleLogout()}>

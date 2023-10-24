@@ -55,10 +55,7 @@ instance.interceptors.response.use(
         // Hiển thị thông báo hoặc thực hiện xử lý khác
       } else {
         // Xử lý các mã lỗi khác
-        console.error(
-          "Request failed with status code:",
-          error.response.status
-        );
+        console.error("Request failed with status code:", error.response);
       }
     } else if (error.request) {
       console.error("No response received:", error.request);

@@ -46,10 +46,6 @@ const Register = (props) => {
   };
   const handleOnChangeEmail = (e) => {
     setTenDangNhap(e.target.value);
-
-    // Biểu thức chính quy để kiểm tra định dạng email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    setIsValid(emailRegex.test(e.target.value));
   };
   return (
     <>
@@ -83,11 +79,11 @@ const Register = (props) => {
                           <FormattedMessage id="auth.enter_email" />
                         </label>
                       </div>
-                      {!isValid && (
+                      {/* {!isValid && (
                         <p style={{ color: "red" }}>
                           <FormattedMessage id="auth.valid_email" />
                         </p>
-                      )}
+                      )} */}
 
                       <div className="form-outline mb-4">
                         <input

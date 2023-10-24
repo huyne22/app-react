@@ -16,7 +16,7 @@ const TableListUser = (props) => {
       >
         <h1>
           {" "}
-          <FormattedMessage id="system.List_of_doctors" />
+          <FormattedMessage id="system.List_of_users" />
         </h1>
         <table className="table table-striped table-bordered table-hover table-spacing">
           <thead>

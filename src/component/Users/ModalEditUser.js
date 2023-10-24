@@ -100,6 +100,7 @@ const ModalEditUser = (props) => {
                 name="MaNguoiDung"
                 value={maNguoiDung}
                 onChange={(e) => setMaNguoiDung(e.target.value)}
+                disabled
               ></input>
             </div>
             <div className="mb-3">

@@ -48,7 +48,7 @@ const ManageUser = (props) => {
   return (
     <div className="manage-user-container">
       <div className="title">
-        <FormattedMessage id="system.doctor_management" />
+        <FormattedMessage id="system.user_management" />
       </div>
       <div className="user-content">
         <div className="btn-add-new">
@@ -58,7 +58,7 @@ const ManageUser = (props) => {
             onClick={() => setShow(true)}
           >
             <FcPlus />
-            <FormattedMessage id="system.add_new_doctor" />
+            <FormattedMessage id="system.add_new_user" />
           </button>
         </div>
       </div>

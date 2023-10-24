@@ -14,7 +14,7 @@
         "login": "Đăng nhập",
         "register":"Đăng ký",
         "username": "Tên đăng nhập",
-        "enter_email": "Nhập email",
+        "enter_email": "Nhập tên đăng nhập",
         "enter_password": "Nhập mật khẩu",
         "password": "Mật khẩu",
         "retype_password": "Nhập lại mật khẩu",
@@ -27,13 +27,17 @@
         "create_account": "TẠO MỘT TÀI KHOẢN",
         "valid_email": "Vui lòng nhập email hợp lệ!",
         "have_account": "Bạn đã có tài khoản?",
-        "signin_here": "Đăng nhập tại đây!"
+        "signin_here": "Đăng nhập tại đây!",
+        "management_page" : "Trang quản lý"
+
     },
     "system": {
+        "hello": "Xin chào  ",
        "home": "Trang chủ",
        "manage": "Quản lý",
        "service": "Dịch vụ",
        "doctor_management": "Quản lý bác sĩ",
+       "user_management": "Quản lý người dùng",
        "nurse_manager": "Quản lý y tá",
        "user_manager": "Quản lý người dùng",
        "medication_management": "Quản lý thuốc",
@@ -44,7 +48,7 @@
        "manage_patient_appointment_schedules": "Quản lý lịch hẹn bệnh nhân",
        "manage_medical_examination_cards": "Quản lý phiếu khám bệnh",
        "patient_management_and_medical_services": "Quản lý bệnh nhân và dịch vụ",
-       "add_new_doctor": "Thêm mới bác sĩ",
+       "add_new_user": "Thêm mới người dùng",
        "add_new_nurse": "Thêm mới y tá",
        "add_new_medicine": "Thêm mới thuốc",
        "add_new_patient": "Thêm mới bệnh nhân",
@@ -54,12 +58,14 @@
        "add_new_medical_examination_card": "Thêm mới phiếu khám",
        "add_new_patient-service": "Thêm mới bệnh nhân - dịch vụ",
        "doctor's_name": "Tên bác sĩ",
+       "User's_name": "Tên tài khoản",
        "nurse's_name": "Tên y tá",
        "medicine's_name": "Tên thuốc",
        "phone_number": "Số điện thoại",
        "service's_name": "Tên dịch vụ",
        "look_up_date": "Tra ngày",
        "List_of_doctors": "Danh sách bác sĩ",
+       "List_of_users": "Danh sách người dùng",
        "List_of_nurses": "Danh sách y tá",
        "List_of_medicines": "Danh sách thuốc",
        "List_of_patients": "Danh sách bệnh nhân",
@@ -67,7 +73,8 @@
        "List_of_duty_schedules": "Danh sách lịch trực",
        "List_of_appointments": "Danh sách lịch hẹn",
        "List_of_medical_examination_cards": "Danh sách phiếu khám bệnh",
-       "List_of_atients-services": "Danh sách bệnh nhân - dịch vụ"
+       "List_of_atients-services": "Danh sách bệnh nhân - dịch vụ",
+       "Welcome_admin_Have_a_nice_day" : "Chào mừng admin.Chúc bạn một ngày tốt lành."
 
     }
 }

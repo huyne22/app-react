@@ -1,4 +1,10 @@
+import { FormattedMessage } from "react-intl";
+
 const DashBoard = (props) => {
-  return <div>Chào mừng admin.Chúc bạn một ngày tốt lành.</div>;
+  return (
+    <div>
+      <FormattedMessage id="system.Welcome_admin_Have_a_nice_day" />
+    </div>
+  );
 };
 export default DashBoard;

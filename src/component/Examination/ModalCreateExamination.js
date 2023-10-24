@@ -3,9 +3,12 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { postCreateExamination } from "../service/apiService";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const ModalCreateExamination = (props) => {
   //modal
+  const account = useSelector((state) => state?.user?.account);
+
   const { show, setShow } = props;
   const [maBS, setMaBS] = useState("");
   const [maBN, setMaBN] = useState("");
@@ -29,17 +32,33 @@ const ModalCreateExamination = (props) => {
     setThanhToan("0");
   }, [show]);
   const handleSubmit = async (e) => {
-    let res = await postCreateExamination(
-      maBS,
-      maBN,
-      ngay,
-      buoi,
-      maYTa,
-      ketQuaChuanDoanBenh,
-      ghiChu,
-      maThuoc,
-      thanhToan
-    );
+    let res = null;
+    if (account?.role === "Doctor") {
+      res = await postCreateExamination(
+        account.id,
+        maBN,
+        ngay,
+        buoi,
+        maYTa,
+        ketQuaChuanDoanBenh,
+        ghiChu,
+        maThuoc,
+        thanhToan
+      );
+    } else {
+      res = await postCreateExamination(
+        maBS,
+        maBN,
+        ngay,
+        buoi,
+        maYTa,
+        ketQuaChuanDoanBenh,
+        ghiChu,
+        maThuoc,
+        thanhToan
+      );
+    }
+
     if (res?.errCode == 0) {
       setShow(false);
       toast.success("🦄Tạo mới phiếu khám bệnh thành công!");
@@ -73,20 +92,36 @@ const ModalCreateExamination = (props) => {
         </Modal.Header>
         <Modal.Body>
           <div className="container mt-3">
-            <div className="mb-3">
-              <label htmlFor="MaBS" className="form-label">
-                Mã bác sĩ
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="MaBS"
-                name="MaBS"
-                value={maBS}
-                onChange={(e) => setMaBS(e.target.value)}
-                required
-              />
-            </div>
+            {account && account.role === "Doctor" ? (
+              <div className="mb-3">
+                <label htmlFor="MaBS" className="form-label">
+                  Mã bác sĩ
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="MaBS"
+                  value={account.id}
+                  disabled
+                />
+              </div>
+            ) : (
+              <div className="mb-3">
+                <label htmlFor="MaBS" className="form-label">
+                  Mã bác sĩ
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="MaBS"
+                  name="MaBS"
+                  value={maBS}
+                  onChange={(e) => setMaBS(e.target.value)}
+                  required
+                />
+              </div>
+            )}
+
             <div className="mb-3">
               <label htmlFor="MaBN" className="form-label">
                 Mã bệnh nhân
