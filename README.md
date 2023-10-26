@@ -4,6 +4,8 @@
 
 - Đang dùng là version node 14.17.0
 - Đầu tiên sau khi git clone cả 2 project nodejs và app-react từ github về thì chạy câu lệnh npm i
+- Các tệp cần thiết cho việc cài đặt nằm trong thư mục ở dự án phía backend tức là :
+  https://github.com/huyne22/nodejs.git
 
 cần tải docker, dbeaver
 Download Docker:
