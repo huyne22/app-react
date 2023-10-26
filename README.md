@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# nodejs
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+                        ĐÂY LÀ PHẦN HƯỚNG DẪN HỆ THỐNG HOẠT ĐỘNG
 
-## Available Scripts
+- Đang dùng là version node 14.17.0
+- Đầu tiên sau khi git clone cả 2 project nodejs và app-react từ github về thì chạy câu lệnh npm i
 
-In the project directory, you can run:
+cần tải docker, dbeaver
+Download Docker:
+https://docs.docker.com/desktop/install/windows-install/
 
-### `npm start`
+Chạy câu lệnh bên dưới bên trong thư mục docker
+docker compose -f mysql.yml -p nodejs-sql up -d
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Download dbeaver:
+https://dbeaver.io/download/
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+B3: Tạo connection trong DBeaver
+Khi chạy ứng dụng lên nhấn vào connect to a database -> chọn mysql, nếu là chạy lần đầu với DBeaver -> nhấn nút dowload mysql
+Sửa lại Port 3307, tên database là luonghuy, mật khẩu 123456 -> Sau đó nhấn nút test connection và Finish.
+Xuất hiện database tên luonghuy -> nhấn vào nó -> databases -> luonghuy -> tiếp tục chuột phải vào nó
+Chọn tools -> Restore database -> input file(chọn tệp script SQL có tên allDatabaseQLPK ở trong thư mục mysql ) -> start
+Refresh lại database sẽ có xuất hiện các table.
 
-### `npm test`
+1 số tài khoản hiện có
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- tài khoản quản trị viên là admin
+- mật khẩu là 123456
 
-### `npm run build`
+  - tài khoản bác sĩ là ad1
+  - mật khẩu là 123456
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  - tài khoản y tá là ad7
+  - mật khẩu là 123456
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Sau này, mỗi lần cần sử dụng database MySQL, đảm bảo rằng 'đã chạy docker trước'.
+Không cần 'update docker' để hạn chế mất dữ liệu
