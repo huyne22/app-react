@@ -9,7 +9,7 @@ cần tải docker, dbeaver
 Download Docker:
 https://docs.docker.com/desktop/install/windows-install/
 
-Chạy câu lệnh bên dưới bên trong thư mục docker
+Chạy câu lệnh bên dưới bên trong thư mục docker:
 docker compose -f mysql.yml -p nodejs-sql up -d
 
 Download dbeaver:
