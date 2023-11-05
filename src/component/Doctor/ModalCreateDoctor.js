@@ -49,6 +49,8 @@ const ModalCreateDoctor = (props) => {
       await props.fetchListDoctor();
     } else if (res?.errCode == 2) {
       toast.error("🦄Tạo mới bác sĩ thất bại! Mã bác sĩ đã tồn tại!");
+    } else if (res?.errCode == 3) {
+      toast.error("🦄Tạo mới bác sĩ thất bại! Mã người dùng chưa được tạo!");
     } else if (res?.errCode == 4) {
       toast.error("🦄Tạo mới bác sĩ thất bại! Mã người dùng đã tồn tại!");
     } else {
